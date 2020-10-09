@@ -2,12 +2,19 @@ package engine;
 
 public class AnswerFeedback {
 
+    private static final String SUCCESS_FEEDBACK = "Congratulations, you're right!";
+    private static final String FAILURE_FEEDBACK = "Wrong answer! Please, try again.";
+
     private boolean success;
     private String feedback;
 
-    public AnswerFeedback(boolean success, String feedback) {
+    public AnswerFeedback(boolean success) {
         this.success = success;
-        this.feedback = feedback;
+        if (success) {
+            feedback = SUCCESS_FEEDBACK;
+        } else {
+            feedback = FAILURE_FEEDBACK;
+        }
     }
 
     public boolean isSuccess() {
