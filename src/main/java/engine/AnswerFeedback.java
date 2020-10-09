@@ -1,11 +1,11 @@
 package engine;
 
-public class AnswerCheck {
+public class AnswerFeedback {
 
     private boolean success;
     private String feedback;
 
-    public AnswerCheck(boolean success, String feedback) {
+    public AnswerFeedback(boolean success, String feedback) {
         this.success = success;
         this.feedback = feedback;
     }
