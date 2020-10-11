@@ -37,4 +37,9 @@ public class WebQuizController {
         quiz.setId(quizId);
         return quiz;
     }
+
+    @GetMapping(path = "/quizzes/{id}")
+    public Quiz getQuiz(@PathVariable int id) {
+        return repository.get(id);
+    }
 }
