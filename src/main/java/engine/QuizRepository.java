@@ -11,6 +11,7 @@ public class QuizRepository {
     }
 
     public int add(Quiz quiz) {
+        quiz.setId(repository.size() + 1);
         repository.add(quiz);
         return repository.size();
     }
