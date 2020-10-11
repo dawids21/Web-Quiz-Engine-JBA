@@ -31,7 +31,9 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/api/quizzes", consumes = "application/json")
-    public void addQuiz(@RequestBody Quiz quiz) {
-        repository.add(quiz);
+    public Quiz addQuiz(@RequestBody Quiz quiz) {
+        var quizId = repository.add(quiz);
+        quiz.setId(quizId);
+        return quiz;
     }
 }
