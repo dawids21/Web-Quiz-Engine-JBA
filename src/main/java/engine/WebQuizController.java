@@ -1,12 +1,19 @@
 package engine;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
+@Component
 @RestController
 public class WebQuizController {
+
+    private final QuizRepository repository;
+
+    @Autowired
+    public WebQuizController(QuizRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping(path = "/api/quiz")
     public Quiz getQuiz() {
