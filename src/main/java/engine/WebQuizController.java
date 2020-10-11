@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
+@RequestMapping(path = "/api")
 public class WebQuizController {
 
     private final QuizRepository repository;
@@ -15,13 +16,13 @@ public class WebQuizController {
         this.repository = repository;
     }
 
-    @GetMapping(path = "/api/quiz")
+    @GetMapping(path = "/quiz")
     public Quiz getQuiz() {
         return new Quiz("The Java Logo", "What is depicted on the Java logo?",
                         new String[]{"Robot", "Tea leaf", "Cup of Coffee", "Bug"}, 2);
     }
 
-    @PostMapping(path = "/api/quiz")
+    @PostMapping(path = "/quiz")
     public AnswerFeedback answer(@RequestParam int answer) {
         if (answer == 2) {
             return new AnswerFeedback(true);
@@ -30,7 +31,7 @@ public class WebQuizController {
         }
     }
 
-    @PostMapping(path = "/api/quizzes", consumes = "application/json")
+    @PostMapping(path = "/quizzes", consumes = "application/json")
     public Quiz addQuiz(@RequestBody Quiz quiz) {
         var quizId = repository.add(quiz);
         quiz.setId(quizId);
