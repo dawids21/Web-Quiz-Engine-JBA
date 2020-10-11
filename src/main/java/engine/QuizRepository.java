@@ -17,10 +17,16 @@ public class QuizRepository {
     }
 
     public Quiz get(int id) {
-        return repository.get(id - 1);
+        return repository.stream()
+                         .filter(quiz -> quiz.getId() == id)
+                         .findFirst()
+                         .orElseThrow(QuizNotFoundException::new);
     }
 
     public void remove(int id) {
-        repository.remove(id - 1);
+        repository.stream()
+                  .filter(quiz -> quiz.getId() == id)
+                  .findFirst()
+                  .ifPresent(repository::remove);
     }
 }
