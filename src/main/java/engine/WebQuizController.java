@@ -29,4 +29,9 @@ public class WebQuizController {
             return new AnswerFeedback(false);
         }
     }
+
+    @PostMapping(path = "/api/quizzes", consumes = "application/json")
+    public void addQuiz(@RequestBody Quiz quiz) {
+        repository.add(quiz);
+    }
 }
