@@ -29,4 +29,8 @@ public class QuizRepository {
                   .findFirst()
                   .ifPresent(repository::remove);
     }
+
+    public ArrayList<Quiz> getAll() {
+        return new ArrayList<Quiz>(repository);
+    }
 }
