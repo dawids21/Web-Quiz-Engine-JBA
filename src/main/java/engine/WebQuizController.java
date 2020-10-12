@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Component
 @RestController
 @RequestMapping(path = "/api")
@@ -21,6 +23,11 @@ public class WebQuizController {
         var quizId = repository.add(quiz);
         quiz.setId(quizId);
         return quiz;
+    }
+
+    @GetMapping(path = "/quizzes")
+    public ArrayList<Quiz> getAllQuizzes() {
+        return repository.getAll();
     }
 
     @GetMapping(path = "/quizzes/{id}")
