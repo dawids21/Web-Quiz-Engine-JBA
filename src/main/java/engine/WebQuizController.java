@@ -16,21 +16,6 @@ public class WebQuizController {
         this.repository = repository;
     }
 
-    @GetMapping(path = "/quiz")
-    public Quiz getQuiz() {
-        return new Quiz("The Java Logo", "What is depicted on the Java logo?",
-                        new String[]{"Robot", "Tea leaf", "Cup of Coffee", "Bug"}, 2);
-    }
-
-    @PostMapping(path = "/quiz")
-    public AnswerFeedback answer(@RequestParam int answer) {
-        if (answer == 2) {
-            return new AnswerFeedback(true);
-        } else {
-            return new AnswerFeedback(false);
-        }
-    }
-
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public Quiz addQuiz(@RequestBody Quiz quiz) {
         var quizId = repository.add(quiz);
