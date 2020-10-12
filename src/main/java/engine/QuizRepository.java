@@ -1,39 +1,35 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class QuizRepository {
 
-    private final ArrayList<Quiz> repository;
+    private final HashMap<Integer, Quiz> repository;
     private int nextId;
 
     public QuizRepository() {
-        repository = new ArrayList<>();
+        repository = new HashMap<>();
         nextId = 1;
     }
 
     public int add(Quiz quiz) {
         quiz.setId(nextId);
+        repository.put(nextId, quiz);
         nextId++;
-        repository.add(quiz);
         return quiz.getId();
     }
 
     public Optional<Quiz> get(int id) {
-        return repository.stream()
-                         .filter(quiz -> quiz.getId() == id)
-                         .findFirst();
+        return Optional.ofNullable(repository.get(id));
     }
 
     public void remove(int id) {
-        repository.stream()
-                  .filter(quiz -> quiz.getId() == id)
-                  .findFirst()
-                  .ifPresent(repository::remove);
+        repository.remove(id);
     }
 
     public ArrayList<Quiz> getAll() {
-        return new ArrayList<Quiz>(repository);
+        return new ArrayList<Quiz>(repository.values());
     }
 }
