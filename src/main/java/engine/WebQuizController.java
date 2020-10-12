@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 @Component
 @RestController
@@ -26,7 +26,7 @@ public class WebQuizController {
     }
 
     @GetMapping(path = "/quizzes")
-    public ArrayList<Quiz> getAllQuizzes() {
+    public HashSet<Quiz> getAllQuizzes() {
         return repository.getAll();
     }
 

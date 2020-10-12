@@ -1,7 +1,7 @@
 package engine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class QuizRepository {
@@ -29,7 +29,7 @@ public class QuizRepository {
         repository.remove(id);
     }
 
-    public ArrayList<Quiz> getAll() {
-        return new ArrayList<Quiz>(repository.values());
+    public HashSet<Quiz> getAll() {
+        return new HashSet<>(repository.values());
     }
 }
