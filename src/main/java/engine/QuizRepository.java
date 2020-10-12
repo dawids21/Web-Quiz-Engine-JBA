@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class QuizRepository {
 
@@ -16,11 +17,10 @@ public class QuizRepository {
         return repository.size();
     }
 
-    public Quiz get(int id) {
+    public Optional<Quiz> get(int id) {
         return repository.stream()
                          .filter(quiz -> quiz.getId() == id)
-                         .findFirst()
-                         .orElseThrow(QuizNotFoundException::new);
+                         .findFirst();
     }
 
     public void remove(int id) {
