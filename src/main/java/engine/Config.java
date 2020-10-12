@@ -7,8 +7,12 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    public QuizRepository getQuizRepository() {
+    public QuizRepository quizRepository() {
         return new QuizRepository();
     }
 
+    @Bean
+    public QuizChecker quizChecker() {
+        return new QuizChecker(quizRepository());
+    }
 }
