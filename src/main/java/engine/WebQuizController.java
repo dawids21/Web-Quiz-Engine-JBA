@@ -12,10 +12,12 @@ import java.util.HashSet;
 public class WebQuizController {
 
     private final QuizRepository repository;
+    private final QuizChecker quizChecker;
 
     @Autowired
-    public WebQuizController(QuizRepository repository) {
+    public WebQuizController(QuizRepository repository, QuizChecker quizChecker) {
         this.repository = repository;
+        this.quizChecker = quizChecker;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
