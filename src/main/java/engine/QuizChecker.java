@@ -1,16 +1,18 @@
 package engine;
 
+import java.util.Optional;
+
 public class QuizChecker {
 
-    private final Quiz quiz;
-    private final int answer;
 
-    public QuizChecker(Quiz quiz, int answer) {
-        this.quiz = quiz;
-        this.answer = answer;
+    private final QuizRepository repository;
+
+    public QuizChecker(QuizRepository repository) {
+        this.repository = repository;
     }
 
-    public boolean isAnswerCorrect() {
-        return quiz.getAnswer() == answer;
+    public Optional<Boolean> isAnswerCorrect(int id, int answer) {
+        return repository.get(id)
+                         .map(quiz -> quiz.getAnswer() == answer);
     }
 }
