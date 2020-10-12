@@ -37,4 +37,10 @@ public class WebQuizController {
         return repository.get(id)
                          .orElseThrow(QuizNotFoundException::new);
     }
+
+    @PostMapping(path = "/quizzes/{id}/solve")
+    public AnswerFeedback solveQuiz(@PathVariable int id, @RequestParam int answer) {
+        return new AnswerFeedback(quizChecker.isAnswerCorrect(id, answer)
+                                             .orElseThrow(QuizNotFoundException::new));
+    }
 }
