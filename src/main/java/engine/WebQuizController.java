@@ -43,8 +43,8 @@ public class WebQuizController {
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
     public AnswerFeedback solveQuiz(@PathVariable int id,
-                                    @Valid @RequestBody SolveJson body) {
-        return new AnswerFeedback(quizService.isAnswerCorrect(id, body.getAnswer()));
+                                    @Valid @RequestBody Map<String, Set<Integer>> body) {
+        return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
