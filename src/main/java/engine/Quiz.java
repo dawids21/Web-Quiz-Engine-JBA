@@ -2,6 +2,8 @@ package engine;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Set;
+
 public class Quiz {
 
     private int id;
@@ -9,9 +11,9 @@ public class Quiz {
     private String text;
     private String[] options;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int answer;
+    private Set<Integer> answer;
 
-    public Quiz(String title, String text, String[] options, int answer) {
+    public Quiz(String title, String text, String[] options, Set<Integer> answer) {
         this.id = 0;
         this.title = title;
         this.text = text;
@@ -51,11 +53,11 @@ public class Quiz {
         this.options = options;
     }
 
-    public int getAnswer() {
+    public Set<Integer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(Set<Integer> answer) {
         this.answer = answer;
     }
 }
