@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Component
@@ -37,7 +38,7 @@ public class WebQuizController {
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
     public AnswerFeedback solveQuiz(@PathVariable int id,
-                                    @RequestParam Set<Integer> answer) {
-        return new AnswerFeedback(quizService.isAnswerCorrect(id, answer));
+                                    @Valid @RequestBody SolveJson body) {
+        return new AnswerFeedback(quizService.isAnswerCorrect(id, body.getAnswer()));
     }
 }
