@@ -1,6 +1,6 @@
 package engine;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Set;
 
@@ -10,8 +10,10 @@ public class Quiz {
     private String title;
     private String text;
     private String[] options;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Integer> answer;
+
+    public Quiz() {
+    }
 
     public Quiz(String title, String text, String[] options, Set<Integer> answer) {
         this.id = 0;
@@ -53,6 +55,7 @@ public class Quiz {
         this.options = options;
     }
 
+    @JsonIgnore
     public Set<Integer> getAnswer() {
         return answer;
     }
