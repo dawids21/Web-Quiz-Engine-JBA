@@ -1,9 +1,12 @@
 package engine;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
+@Component
 public class QuizRepository {
 
     private final HashMap<Integer, Quiz> repository;
