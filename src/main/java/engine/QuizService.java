@@ -1,9 +1,10 @@
 package engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -26,11 +27,18 @@ public class QuizService {
         return quizRepository.getAll();
     }
 
-    public Optional<Quiz> getQuiz(int id) {
-        return quizRepository.get(id);
+    public Quiz getQuiz(int id) {
+        return quizRepository.get(id)
+                             .orElseThrow(() -> new ResponseStatusException(
+                                      HttpStatus.NOT_FOUND, "Quiz not found"));
+      
     }
 
-    public Optional<Boolean> isAnswerCorrect(int id, int answer) {
-        return quizChecker.checkAnswer(id, answer);
+    public boolean isAnswerCorrect(int id, int answer) {
+        return quizChecker.checkAnswer(id, answer)
+                          .orElseThrow(
+                                   () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                     "Quiz not found"));
+
     }
 }

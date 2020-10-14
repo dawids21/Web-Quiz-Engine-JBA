@@ -1,10 +1,8 @@
 package engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
 
@@ -34,18 +32,11 @@ public class WebQuizController {
 
     @GetMapping(path = "/quizzes/{id}")
     public Quiz getQuiz(@PathVariable int id) {
-        return quizService.getQuiz(id)
-                          .orElseThrow(
-                                   () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                                                     "Quiz not found"));
+        return quizService.getQuiz(id);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve")
     public AnswerFeedback solveQuiz(@PathVariable int id, @RequestParam int answer) {
-        return new AnswerFeedback(quizService.isAnswerCorrect(id, answer)
-                                             .orElseThrow(
-                                                      () -> new ResponseStatusException(
-                                                               HttpStatus.NOT_FOUND,
-                                                               "Quiz not found")));
+        return new AnswerFeedback(quizService.isAnswerCorrect(id, answer));
     }
 }
