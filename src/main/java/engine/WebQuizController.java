@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @RestController
@@ -27,27 +27,27 @@ public class WebQuizController {
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public Quiz addQuiz(@RequestBody Quiz quiz) {
-        var quizId = repository.add(quiz);
+        var quizId = quizService.addQuiz(quiz);
         quiz.setId(quizId);
         return quiz;
     }
 
     @GetMapping(path = "/quizzes")
-    public HashSet<Quiz> getAllQuizzes() {
-        return repository.getAll();
+    public Set<Quiz> getAllQuizzes() {
+        return quizService.getAllQuizzes();
     }
 
     @GetMapping(path = "/quizzes/{id}")
     public Quiz getQuiz(@PathVariable int id) {
-        return repository.get(id)
-                         .orElseThrow(
-                                  () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                                                    "Quiz not found"));
+        return quizService.getQuiz(id)
+                          .orElseThrow(
+                                   () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                     "Quiz not found"));
     }
 
     @PostMapping(path = "/quizzes/{id}/solve")
     public AnswerFeedback solveQuiz(@PathVariable int id, @RequestParam int answer) {
-        return new AnswerFeedback(quizChecker.isAnswerCorrect(id, answer)
+        return new AnswerFeedback(quizService.isAnswerCorrect(id, answer)
                                              .orElseThrow(
                                                       () -> new ResponseStatusException(
                                                                HttpStatus.NOT_FOUND,
