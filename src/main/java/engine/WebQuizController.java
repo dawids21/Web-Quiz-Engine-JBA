@@ -13,15 +13,10 @@ import java.util.Set;
 @RequestMapping(path = "/api")
 public class WebQuizController {
 
-    private final QuizRepository repository;
-    private final QuizChecker quizChecker;
     private final QuizService quizService;
 
     @Autowired
-    public WebQuizController(QuizRepository repository, QuizChecker quizChecker,
-                             QuizService quizService) {
-        this.repository = repository;
-        this.quizChecker = quizChecker;
+    public WebQuizController(QuizService quizService) {
         this.quizService = quizService;
     }
 
