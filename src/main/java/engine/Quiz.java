@@ -1,6 +1,6 @@
 package engine;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,6 +22,7 @@ public class Quiz {
     @Size(min = 2, message = "Must have at least 2 options")
     private String[] options;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Integer> answer = new HashSet<>();
 
     public Quiz() {
@@ -66,7 +67,6 @@ public class Quiz {
         this.options = options;
     }
 
-    @JsonIgnore
     public Set<Integer> getAnswer() {
         return answer;
     }
