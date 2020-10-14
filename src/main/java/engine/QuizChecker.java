@@ -18,6 +18,7 @@ public class QuizChecker {
 
     public Optional<Boolean> checkAnswer(int id, Set<Integer> answer) {
         return repository.get(id)
-                         .map(quiz -> quiz.getAnswer() == answer);
+                         .map(quiz -> quiz.getAnswer()
+                                          .equals(answer));
     }
 }
