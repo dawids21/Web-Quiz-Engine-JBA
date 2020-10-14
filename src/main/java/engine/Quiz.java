@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Quiz {
 
-    private int id;
+    private int id = 0;
 
     @NotBlank(message = "Title is mandatory")
     private String title;
@@ -21,13 +22,12 @@ public class Quiz {
     @Size(min = 2, message = "Must have at least 2 options")
     private String[] options;
 
-    private Set<Integer> answer;
+    private Set<Integer> answer = new HashSet<>();
 
     public Quiz() {
     }
 
     public Quiz(String title, String text, String[] options, Set<Integer> answer) {
-        this.id = 0;
         this.title = title;
         this.text = text;
         this.options = options;
