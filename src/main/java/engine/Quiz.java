@@ -2,13 +2,20 @@ package engine;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class Quiz {
 
     private int id;
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotBlank(message = "Text is mandatory")
     private String text;
+    @NotNull(message = "Options are mandatory")
+    @Size(min = 2, message = "Must have at least 2 options")
     private String[] options;
     private Set<Integer> answer;
 
