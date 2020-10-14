@@ -20,7 +20,7 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
-    public Quiz addQuiz(@RequestBody Quiz quiz) {
+    public Quiz addQuiz(@Valid @RequestBody Quiz quiz) {
         var quizId = quizService.addQuiz(quiz);
         quiz.setId(quizId);
         return quiz;
