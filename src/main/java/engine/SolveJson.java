@@ -3,15 +3,15 @@ package engine;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-public class AnswerJson {
+public class SolveJson {
 
     @NotNull(message = "Answer is mandatory")
     private Set<Integer> answer;
 
-    public AnswerJson() {
+    public SolveJson() {
     }
 
-    public AnswerJson(Set<Integer> answer) {
+    public SolveJson(Set<Integer> answer) {
         this.answer = answer;
     }
 
