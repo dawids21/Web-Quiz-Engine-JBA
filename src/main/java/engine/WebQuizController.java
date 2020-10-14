@@ -45,6 +45,9 @@ public class WebQuizController {
     @PostMapping(path = "/quizzes/{id}/solve")
     public AnswerFeedback solveQuiz(@PathVariable int id, @RequestParam int answer) {
         return new AnswerFeedback(quizChecker.isAnswerCorrect(id, answer)
-                                             .orElseThrow(QuizNotFoundException::new));
+                                             .orElseThrow(
+                                                      () -> new ResponseStatusException(
+                                                               HttpStatus.NOT_FOUND,
+                                                               "Quiz not found")));
     }
 }
