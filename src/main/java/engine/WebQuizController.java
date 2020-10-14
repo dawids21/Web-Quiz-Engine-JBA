@@ -1,8 +1,10 @@
 package engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 
@@ -35,7 +37,9 @@ public class WebQuizController {
     @GetMapping(path = "/quizzes/{id}")
     public Quiz getQuiz(@PathVariable int id) {
         return repository.get(id)
-                         .orElseThrow(QuizNotFoundException::new);
+                         .orElseThrow(
+                                  () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                    "Quiz not found"));
     }
 
     @PostMapping(path = "/quizzes/{id}/solve")
