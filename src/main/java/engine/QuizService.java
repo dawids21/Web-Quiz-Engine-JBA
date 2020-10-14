@@ -31,10 +31,9 @@ public class QuizService {
         return quizRepository.get(id)
                              .orElseThrow(() -> new ResponseStatusException(
                                       HttpStatus.NOT_FOUND, "Quiz not found"));
-      
     }
 
-    public boolean isAnswerCorrect(int id, int answer) {
+    public boolean isAnswerCorrect(int id, Set<Integer> answer) {
         return quizChecker.checkAnswer(id, answer)
                           .orElseThrow(
                                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
