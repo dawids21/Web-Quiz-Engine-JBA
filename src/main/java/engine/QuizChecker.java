@@ -11,7 +11,7 @@ public class QuizChecker {
         this.repository = repository;
     }
 
-    public Optional<Boolean> isAnswerCorrect(int id, int answer) {
+    public Optional<Boolean> checkAnswer(int id, int answer) {
         return repository.get(id)
                          .map(quiz -> quiz.getAnswer() == answer);
     }

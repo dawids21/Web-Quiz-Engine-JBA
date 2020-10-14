@@ -19,22 +19,18 @@ public class QuizService {
     }
 
     public int addQuiz(Quiz quiz) {
-        //TODO implement addQuiz
-        throw new UnsupportedOperationException("Not implemented yet");
+        return quizRepository.add(quiz);
     }
 
     public Set<Quiz> getAllQuizzes() {
-        //TODO implement getAllQuizzes
-        throw new UnsupportedOperationException("Not implemented yet");
+        return quizRepository.getAll();
     }
 
     public Optional<Quiz> getQuiz(int id) {
-        //TODO implement getQuiz
-        throw new UnsupportedOperationException("Not implemented yet");
+        return quizRepository.get(id);
     }
 
     public Optional<Boolean> isAnswerCorrect(int id, int answer) {
-        //TODO implement isAnswerCorrect
-        throw new UnsupportedOperationException("Not implemented yet");
+        return quizChecker.checkAnswer(id, answer);
     }
 }
