@@ -15,11 +15,14 @@ public class WebQuizController {
 
     private final QuizRepository repository;
     private final QuizChecker quizChecker;
+    private final QuizService quizService;
 
     @Autowired
-    public WebQuizController(QuizRepository repository, QuizChecker quizChecker) {
+    public WebQuizController(QuizRepository repository, QuizChecker quizChecker,
+                             QuizService quizService) {
         this.repository = repository;
         this.quizChecker = quizChecker;
+        this.quizService = quizService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
