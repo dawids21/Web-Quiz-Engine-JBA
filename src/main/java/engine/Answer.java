@@ -17,6 +17,9 @@ public class Answer {
 
     private int answer;
 
+    public Answer() {
+    }
+
     public long getId() {
         return id;
     }
