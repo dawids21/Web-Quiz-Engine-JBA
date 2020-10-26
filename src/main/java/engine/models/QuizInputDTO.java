@@ -1,5 +1,7 @@
 package engine.models;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -7,9 +9,15 @@ import java.util.Set;
 
 public class QuizInputDTO {
 
+    @NotBlank(message = "Title is mandatory")
     private String title;
+
+    @NotBlank(message = "Text is mandatory")
     private String text;
+
+    @NotNull(message = "Options are mandatory")
     private List<String> options;
+
     private Set<Integer> answer = new HashSet<>();
 
     public QuizInputDTO() {
