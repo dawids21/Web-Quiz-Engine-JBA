@@ -1,7 +1,5 @@
 package engine.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,7 +29,6 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz")
     private List<Option> options;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "quiz")
     private Set<Answer> answers = new HashSet<>();
 
