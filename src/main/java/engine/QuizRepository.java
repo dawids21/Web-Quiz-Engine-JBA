@@ -17,7 +17,7 @@ public class QuizRepository {
         nextId = 1;
     }
 
-    public int add(Quiz quiz) {
+    public long add(Quiz quiz) {
         quiz.setId(nextId);
         repository.put(nextId, quiz);
         nextId++;

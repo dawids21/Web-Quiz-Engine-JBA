@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Quiz {
 
-    private int id = 0;
+    private long id = 0;
 
     @NotBlank(message = "Title is mandatory")
     private String title;
@@ -35,11 +35,11 @@ public class Quiz {
         this.answer = answer;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

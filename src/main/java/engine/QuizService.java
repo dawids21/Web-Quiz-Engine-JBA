@@ -19,7 +19,7 @@ public class QuizService {
         this.quizChecker = quizChecker;
     }
 
-    public int addQuiz(Quiz quiz) {
+    public long addQuiz(Quiz quiz) {
         return quizRepository.add(quiz);
     }
 
