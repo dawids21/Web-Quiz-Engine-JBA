@@ -1,8 +1,6 @@
-package engine;
+package engine.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import engine.models.Answer;
-import engine.models.Option;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
