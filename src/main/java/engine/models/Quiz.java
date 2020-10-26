@@ -19,9 +19,11 @@ public class Quiz {
     private long id = 0;
 
     @NotBlank(message = "Title is mandatory")
+    @Column(nullable = false)
     private String title;
 
     @NotBlank(message = "Text is mandatory")
+    @Column(nullable = false)
     private String text;
 
     @NotNull(message = "Options are mandatory")
