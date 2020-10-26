@@ -1,15 +1,23 @@
 package engine;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import engine.models.Answer;
+import engine.models.Option;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Entity
+@Table(name = "Quizzes")
 public class Quiz {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id = 0;
 
     @NotBlank(message = "Title is mandatory")
@@ -20,19 +28,14 @@ public class Quiz {
 
     @NotNull(message = "Options are mandatory")
     @Size(min = 2, message = "Must have at least 2 options")
-    private String[] options;
+    @OneToMany(mappedBy = "quiz")
+    private List<Option> options;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Set<Integer> answer = new HashSet<>();
+    @OneToMany(mappedBy = "quiz")
+    private Set<Answer> answers = new HashSet<>();
 
     public Quiz() {
-    }
-
-    public Quiz(String title, String text, String[] options, Set<Integer> answer) {
-        this.title = title;
-        this.text = text;
-        this.options = options;
-        this.answer = answer;
     }
 
     public long getId() {
@@ -59,19 +62,19 @@ public class Quiz {
         this.text = text;
     }
 
-    public String[] getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(String[] options) {
+    public void setOptions(List<Option> options) {
         this.options = options;
     }
 
-    public Set<Integer> getAnswer() {
-        return answer;
+    public Set<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(Set<Integer> answer) {
-        this.answer = answer;
+    public void setAnswers(Set<Answer> answer) {
+        this.answers = answer;
     }
 }
