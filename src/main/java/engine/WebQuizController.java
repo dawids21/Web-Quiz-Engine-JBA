@@ -43,7 +43,7 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
-    public AnswerFeedback solveQuiz(@PathVariable int id,
+    public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
         return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
     }
