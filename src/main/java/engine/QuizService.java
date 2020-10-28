@@ -1,6 +1,8 @@
 package engine;
 
 import engine.models.Quiz;
+import engine.models.QuizDTOWithoutAnswer;
+import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,15 +15,20 @@ public class QuizService {
 
     private final QuizRepository quizRepository;
     private final QuizChecker quizChecker;
+    private final ObjectMapperUtils objectMapperUtils;
 
     @Autowired
-    public QuizService(QuizRepository quizRepository, QuizChecker quizChecker) {
+    public QuizService(QuizRepository quizRepository, QuizChecker quizChecker,
+                       ObjectMapperUtils objectMapperUtils) {
         this.quizRepository = quizRepository;
         this.quizChecker = quizChecker;
+        this.objectMapperUtils = objectMapperUtils;
     }
 
-    public long addQuiz(Quiz quiz) {
-        return quizRepository.add(quiz);
+    public QuizDTOWithoutAnswer addQuiz(QuizInputDTO quizInput) {
+        var quiz = objectMapperUtils.mapQuizInputDTOToQuiz(quizInput);
+        var quizEntity = quizRepository.save(quiz);
+        return objectMapperUtils.mapQuizToQuizDTOWithoutAnswer(quizEntity);
     }
 
     public Set<Quiz> getAllQuizzes() {

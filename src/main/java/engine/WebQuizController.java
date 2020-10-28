@@ -1,6 +1,8 @@
 package engine;
 
 import engine.models.Quiz;
+import engine.models.QuizDTOWithoutAnswer;
+import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -26,10 +28,8 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
-    public Quiz addQuiz(@Valid @RequestBody Quiz quiz) {
-        var quizId = quizService.addQuiz(quiz);
-        quiz.setId(quizId);
-        return quiz;
+    public QuizDTOWithoutAnswer addQuiz(@Valid @RequestBody QuizInputDTO quiz) {
+        return quizService.addQuiz(quiz);
     }
 
     @GetMapping(path = "/quizzes")
