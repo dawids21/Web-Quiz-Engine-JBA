@@ -1,5 +1,6 @@
-package engine;
+package engine.controllers;
 
+import engine.QuizService;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
