@@ -20,6 +20,10 @@ public class Option {
     public Option() {
     }
 
+    public Option(String text) {
+        this.text = text;
+    }
+
     public long getId() {
         return id;
     }

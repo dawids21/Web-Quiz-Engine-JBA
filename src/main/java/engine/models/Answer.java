@@ -20,6 +20,10 @@ public class Answer {
     public Answer() {
     }
 
+    public Answer(int answer) {
+        this.answer = answer;
+    }
+
     public long getId() {
         return id;
     }
