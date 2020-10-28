@@ -1,7 +1,9 @@
-package engine;
+package engine.controllers;
 
+import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
+import engine.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

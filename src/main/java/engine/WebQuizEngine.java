@@ -1,5 +1,6 @@
 package engine;
 
+import engine.utils.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,7 @@ public class WebQuizEngine {
     }
 
     @Bean
-    public ObjectMapperUtils getObjectMapperUtils() {
-        return new ObjectMapperUtils();
+    public ObjectMapper getObjectMapperUtils() {
+        return new ObjectMapper();
     }
 }
