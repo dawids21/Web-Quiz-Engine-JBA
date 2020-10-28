@@ -17,10 +17,10 @@ public class Quiz {
 
     private String text;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Option> options;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
 
     public Quiz() {
