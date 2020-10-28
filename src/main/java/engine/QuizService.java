@@ -1,6 +1,5 @@
 package engine;
 
-import engine.models.Quiz;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +40,11 @@ public class QuizService {
                             .collect(Collectors.toList());
     }
 
-    public Quiz getQuiz(int id) {
-        return quizRepository.get(id)
-                             .orElseThrow(() -> new ResponseStatusException(
-                                      HttpStatus.NOT_FOUND, "Quiz not found"));
+    public QuizDTOWithoutAnswer getQuiz(long id) {
+        var quiz = quizRepository.findById(id)
+                                 .orElseThrow(() -> new ResponseStatusException(
+                                          HttpStatus.NOT_FOUND, "Quiz not found"));
+        return objectMapperUtils.mapQuizToQuizDTOWithoutAnswer(quiz);
     }
 
     public boolean isAnswerCorrect(int id, Set<Integer> answer) {

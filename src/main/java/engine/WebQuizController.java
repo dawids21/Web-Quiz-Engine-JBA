@@ -1,6 +1,5 @@
 package engine;
 
-import engine.models.Quiz;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class WebQuizController {
     }
 
     @GetMapping(path = "/quizzes/{id}")
-    public Quiz getQuiz(@PathVariable int id) {
+    public QuizDTOWithoutAnswer getQuiz(@PathVariable long id) {
         return quizService.getQuiz(id);
     }
 
