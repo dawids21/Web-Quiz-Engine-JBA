@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class WebQuizController {
     }
 
     @GetMapping(path = "/quizzes")
-    public Set<Quiz> getAllQuizzes() {
+    public List<QuizDTOWithoutAnswer> getAllQuizzes() {
         return quizService.getAllQuizzes();
     }
 

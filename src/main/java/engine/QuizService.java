@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class QuizService {
@@ -31,8 +34,11 @@ public class QuizService {
         return objectMapperUtils.mapQuizToQuizDTOWithoutAnswer(quizEntity);
     }
 
-    public Set<Quiz> getAllQuizzes() {
-        return quizRepository.getAll();
+    public List<QuizDTOWithoutAnswer> getAllQuizzes() {
+        return StreamSupport.stream(quizRepository.findAll()
+                                                  .spliterator(), false)
+                            .map(objectMapperUtils::mapQuizToQuizDTOWithoutAnswer)
+                            .collect(Collectors.toList());
     }
 
     public Quiz getQuiz(int id) {
