@@ -1,5 +1,6 @@
 package engine;
 
+import engine.models.Quiz;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
