@@ -1,9 +1,6 @@
 package engine;
 
-import engine.models.Answer;
-import engine.models.Option;
-import engine.models.Quiz;
-import engine.models.QuizInputDTO;
+import engine.models.*;
 
 import java.util.stream.Collectors;
 
@@ -21,6 +18,18 @@ public class ObjectMapperUtils {
                               .stream()
                               .map(Answer::new)
                               .collect(Collectors.toSet()));
+        return quiz;
+    }
+
+    public QuizDTOWithoutAnswer mapQuizToQuizDTOWithoutAnswer(Quiz source) {
+        var quiz = new QuizDTOWithoutAnswer();
+        quiz.setId(source.getId());
+        quiz.setTitle(source.getTitle());
+        quiz.setText(source.getText());
+        quiz.setOptions(source.getOptions()
+                              .stream()
+                              .map(Option::getText)
+                              .collect(Collectors.toList()));
         return quiz;
     }
 }
