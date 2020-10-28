@@ -1,7 +1,6 @@
 package engine.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,6 @@ public class Quiz {
 
     private String text;
 
-    @Size(min = 2, message = "Must have at least 2 options")
     @OneToMany(mappedBy = "quiz")
     private List<Option> options;
 
