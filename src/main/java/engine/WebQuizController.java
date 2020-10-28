@@ -1,5 +1,6 @@
 package engine;
 
+import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
