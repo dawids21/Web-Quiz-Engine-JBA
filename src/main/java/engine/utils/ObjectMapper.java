@@ -1,10 +1,10 @@
-package engine;
+package engine.utils;
 
 import engine.models.*;
 
 import java.util.stream.Collectors;
 
-public class ObjectMapperUtils {
+public class ObjectMapper {
 
     public Quiz mapQuizInputDTOToQuiz(QuizInputDTO source) {
         var quiz = new Quiz();
