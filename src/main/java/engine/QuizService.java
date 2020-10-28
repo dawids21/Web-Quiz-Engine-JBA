@@ -29,6 +29,10 @@ public class QuizService {
 
     public QuizDTOWithoutAnswer addQuiz(QuizInputDTO quizInput) {
         var quiz = objectMapperUtils.mapQuizInputDTOToQuiz(quizInput);
+        quiz.getAnswers()
+            .forEach(answer -> answer.setQuiz(quiz));
+        quiz.getOptions()
+            .forEach(option -> option.setQuiz(quiz));
         var quizEntity = quizRepository.save(quiz);
         return objectMapperUtils.mapQuizToQuizDTOWithoutAnswer(quizEntity);
     }
