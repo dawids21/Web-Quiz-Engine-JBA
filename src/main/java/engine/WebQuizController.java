@@ -1,5 +1,7 @@
 package engine;
 
+import engine.models.QuizDTOWithoutAnswer;
+import engine.models.QuizInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,24 +28,22 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
-    public Quiz addQuiz(@Valid @RequestBody Quiz quiz) {
-        var quizId = quizService.addQuiz(quiz);
-        quiz.setId(quizId);
-        return quiz;
+    public QuizDTOWithoutAnswer addQuiz(@Valid @RequestBody QuizInputDTO quiz) {
+        return quizService.addQuiz(quiz);
     }
 
     @GetMapping(path = "/quizzes")
-    public Set<Quiz> getAllQuizzes() {
+    public List<QuizDTOWithoutAnswer> getAllQuizzes() {
         return quizService.getAllQuizzes();
     }
 
     @GetMapping(path = "/quizzes/{id}")
-    public Quiz getQuiz(@PathVariable int id) {
+    public QuizDTOWithoutAnswer getQuiz(@PathVariable long id) {
         return quizService.getQuiz(id);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
-    public AnswerFeedback solveQuiz(@PathVariable int id,
+    public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
         return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
     }
