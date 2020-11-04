@@ -3,7 +3,9 @@ package engine.controllers;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
+import engine.models.UserDTO;
 import engine.services.QuizService;
+import engine.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -23,10 +25,12 @@ import java.util.Set;
 public class WebQuizController {
 
     private final QuizService quizService;
+    private final UserService userService;
 
     @Autowired
-    public WebQuizController(QuizService quizService) {
+    public WebQuizController(QuizService quizService, UserService userService) {
         this.quizService = quizService;
+        this.userService = userService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
@@ -48,6 +52,11 @@ public class WebQuizController {
     public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
         return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
+    }
+
+    @PostMapping(path = "/register", consumes = "application/json")
+    public void addUser(@Valid @RequestBody UserDTO userDTO) {
+        userService.addUser(userDTO);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
