@@ -18,10 +18,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/actuator/shutdown", "/h2-console")
+            .antMatchers("/actuator/shutdown")
             .permitAll()
+            .antMatchers("/h2-console/**")
+            .hasRole("ADMIN")
             .anyRequest()
-            .authenticated();
+            .authenticated()
+            .and()
+            .csrf()
+            .disable()
+            .headers()
+            .frameOptions()
+            .sameOrigin();
     }
 
     @Bean
@@ -31,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         var user = User.withDefaultPasswordEncoder()
                        .username("admin")
                        .password("admin")
-                       .roles("USER")
+                       .roles("ADMIN")
                        .build();
         return new InMemoryUserDetailsManager(user);
     }
