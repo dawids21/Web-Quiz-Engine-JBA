@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/actuator/shutdown")
+            .antMatchers("/actuator/shutdown", "/h2-console")
             .permitAll()
             .anyRequest()
             .authenticated();
