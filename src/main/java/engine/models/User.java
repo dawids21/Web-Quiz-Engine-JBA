@@ -23,7 +23,7 @@ public class User {
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
 
     public User() {
