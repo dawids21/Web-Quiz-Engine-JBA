@@ -31,8 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         var user = User.withDefaultPasswordEncoder()
                        .username("admin")
                        .password("admin")
-                       .roles("USER")
+                       .roles("ADMIN")
                        .build();
+        //TODO add users from database
+        //TODO add admin to database
         return new InMemoryUserDetailsManager(user);
     }
 }
