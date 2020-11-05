@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +72,24 @@ public class WebQuizController {
                      var fieldName = ((FieldError) error).getField();
                      var errorMessage = error.getDefaultMessage();
                      errors.put(fieldName, errorMessage);
+                 });
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Map<String, String> handleConstraintViolationException(
+             ConstraintViolationException exception) {
+        Map<String, String> errors = new HashMap<>();
+        exception.getConstraintViolations()
+                 .forEach(constraintViolation -> {
+                     var fieldName = constraintViolation.getPropertyPath()
+                                                        .toString();
+                     var value = constraintViolation.getInvalidValue()
+                                                    .toString();
+                     var message = constraintViolation.getMessage();
+                     errors.put(fieldName, value);
+                     errors.put("message", message);
                  });
         return errors;
     }
