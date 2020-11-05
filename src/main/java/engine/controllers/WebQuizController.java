@@ -36,6 +36,7 @@ public class WebQuizController {
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizDTOWithoutAnswer addQuiz(@Valid @RequestBody QuizInputDTO quiz) {
+        //TODO add quiz owner
         return quizService.addQuiz(quiz);
     }
 
@@ -60,6 +61,8 @@ public class WebQuizController {
         userService.addUser(userDTO);
         return "{\"success\": true}";
     }
+
+    //TODO add delete endpoint
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
