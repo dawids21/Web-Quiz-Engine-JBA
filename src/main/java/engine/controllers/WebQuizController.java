@@ -54,9 +54,10 @@ public class WebQuizController {
         return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
     }
 
-    @PostMapping(path = "/register", consumes = "application/json")
-    public void addUser(@Valid @RequestBody UserDTO userDTO) {
+    @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
+    public String addUser(@Valid @RequestBody UserDTO userDTO) {
         userService.addUser(userDTO);
+        return "{\"success\": true}";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
