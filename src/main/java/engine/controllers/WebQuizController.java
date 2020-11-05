@@ -3,7 +3,9 @@ package engine.controllers;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
+import engine.models.UserDTO;
 import engine.services.QuizService;
+import engine.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -23,10 +26,12 @@ import java.util.Set;
 public class WebQuizController {
 
     private final QuizService quizService;
+    private final UserService userService;
 
     @Autowired
-    public WebQuizController(QuizService quizService) {
+    public WebQuizController(QuizService quizService, UserService userService) {
         this.quizService = quizService;
+        this.userService = userService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
@@ -50,6 +55,12 @@ public class WebQuizController {
         return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
     }
 
+    @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
+    public String addUser(@Valid @RequestBody UserDTO userDTO) {
+        userService.addUser(userDTO);
+        return "{\"success\": true}";
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(
@@ -61,6 +72,24 @@ public class WebQuizController {
                      var fieldName = ((FieldError) error).getField();
                      var errorMessage = error.getDefaultMessage();
                      errors.put(fieldName, errorMessage);
+                 });
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Map<String, String> handleConstraintViolationException(
+             ConstraintViolationException exception) {
+        Map<String, String> errors = new HashMap<>();
+        exception.getConstraintViolations()
+                 .forEach(constraintViolation -> {
+                     var fieldName = constraintViolation.getPropertyPath()
+                                                        .toString();
+                     var value = constraintViolation.getInvalidValue()
+                                                    .toString();
+                     var message = constraintViolation.getMessage();
+                     errors.put(fieldName, value);
+                     errors.put("message", message);
                  });
         return errors;
     }

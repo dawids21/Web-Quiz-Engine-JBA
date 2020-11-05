@@ -17,6 +17,10 @@ public class Quiz {
 
     private String text;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
+
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Option> options;
 
@@ -48,6 +52,14 @@ public class Quiz {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public List<Option> getOptions() {

@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/actuator/shutdown")
+            .antMatchers("/actuator/shutdown", "/api/register")
             .permitAll()
             .antMatchers("/h2-console/**")
             .hasRole("ADMIN")
@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                        .password("admin")
                        .roles("ADMIN")
                        .build();
+        //TODO add users from database
+        //TODO add admin to database
         return new InMemoryUserDetailsManager(user);
     }
 }
