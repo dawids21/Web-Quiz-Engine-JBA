@@ -20,8 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/actuator/shutdown", "/api/register")
             .permitAll()
+            .antMatchers("/h2-console/**")
+            .hasRole("ADMIN")
             .anyRequest()
-            .authenticated();
+            .authenticated()
+            .and()
+            .csrf()
+            .disable()
+            .headers()
+            .frameOptions()
+            .disable();
     }
 
     @Bean
