@@ -29,8 +29,7 @@ public class UserService {
         }
         var user = new User();
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        //TODO add password encryption
+        user.setPassword(passwordEncryptor.encrypt(userDTO.getPassword()));
         userRepository.save(user);
     }
 }
