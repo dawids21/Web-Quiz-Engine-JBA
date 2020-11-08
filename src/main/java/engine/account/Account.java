@@ -29,6 +29,8 @@ public class Account {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
 
+    //TODO add roles
+
     public Account() {
     }
 
