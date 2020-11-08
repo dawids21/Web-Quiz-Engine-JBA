@@ -1,4 +1,4 @@
-package engine.user;
+package engine.account;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-public class UserDTO {
+public class AccountDTO {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid")
@@ -17,10 +17,10 @@ public class UserDTO {
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
-    public UserDTO() {
+    public AccountDTO() {
     }
 
-    public UserDTO(@Valid String email, @Valid String password) {
+    public AccountDTO(@Valid String email, @Valid String password) {
         this.email = email;
         this.password = password;
     }
@@ -49,9 +49,9 @@ public class UserDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(getEmail(), userDTO.getEmail()) &&
-               Objects.equals(getPassword(), userDTO.getPassword());
+        AccountDTO accountDTO = (AccountDTO) o;
+        return Objects.equals(getEmail(), accountDTO.getEmail()) &&
+               Objects.equals(getPassword(), accountDTO.getPassword());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" + "email='" + email + '\'' + ", password='" + password + '\'' +
-               '}';
+        return "AccountDTO{" + "email='" + email + '\'' + ", password='" + password +
+               '\'' + '}';
     }
 }

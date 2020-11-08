@@ -1,6 +1,6 @@
 package engine.models;
 
-import engine.user.User;
+import engine.account.Account;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,8 +20,8 @@ public class Quiz {
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User owner;
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account owner;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Option> options;
@@ -56,11 +56,11 @@ public class Quiz {
         this.text = text;
     }
 
-    public User getOwner() {
+    public Account getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Account owner) {
         this.owner = owner;
     }
 

@@ -1,4 +1,4 @@
-package engine.user;
+package engine.account;
 
 import engine.models.Quiz;
 import org.hibernate.validator.constraints.Length;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "Accounts")
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
 
-    public User() {
+    public Account() {
     }
 
     public long getId() {
@@ -72,10 +72,11 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return getId() == user.getId() && Objects.equals(getEmail(), user.getEmail()) &&
-               Objects.equals(getPassword(), user.getPassword()) &&
-               Objects.equals(getQuizzes(), user.getQuizzes());
+        Account account = (Account) o;
+        return getId() == account.getId() &&
+               Objects.equals(getEmail(), account.getEmail()) &&
+               Objects.equals(getPassword(), account.getPassword()) &&
+               Objects.equals(getQuizzes(), account.getQuizzes());
     }
 
     @Override
@@ -85,7 +86,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", email='" + email + '\'' + ", password='" +
+        return "Account{" + "id=" + id + ", email='" + email + '\'' + ", password='" +
                password + '\'' + ", quizzes=" + quizzes + '}';
     }
 }
