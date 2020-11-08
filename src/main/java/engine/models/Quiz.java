@@ -1,5 +1,7 @@
 package engine.models;
 
+import engine.user.User;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;

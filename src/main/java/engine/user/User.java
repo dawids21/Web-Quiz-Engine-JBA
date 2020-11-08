@@ -1,5 +1,6 @@
-package engine.models;
+package engine.user;
 
+import engine.models.Quiz;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

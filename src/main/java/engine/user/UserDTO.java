@@ -1,4 +1,4 @@
-package engine.models;
+package engine.user;
 
 import org.hibernate.validator.constraints.Length;
 

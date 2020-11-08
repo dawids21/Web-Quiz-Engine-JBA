@@ -1,7 +1,5 @@
-package engine.services;
+package engine.user;
 
-import engine.models.User;
-import engine.models.UserDTO;
 import engine.utils.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
