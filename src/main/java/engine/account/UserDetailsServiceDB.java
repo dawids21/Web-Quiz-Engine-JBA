@@ -20,10 +20,10 @@ public class UserDetailsServiceDB implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
              throws UsernameNotFoundException {
-        var user = accountRepository.findByEmail(username);
+        var account = accountRepository.findByEmail(username);
         return User.builder()
-                   .username(user.getEmail())
-                   .password(user.getPassword())
+                   .username(account.getEmail())
+                   .password(account.getPassword())
                    .roles("ADMIN")
                    .build();
         //TODO add roles
