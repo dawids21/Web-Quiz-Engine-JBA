@@ -27,6 +27,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .frameOptions()
             .sameOrigin();
     }
-
-    //TODO add admin to database
 }

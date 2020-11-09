@@ -31,7 +31,6 @@ public class UserDetailsServiceDB implements UserDetailsService {
             throw new UsernameNotFoundException("Account " + username + " not found");
         }
         System.out.println(account);
-        //TODO what if email not found
         return User.builder()
                    .username(account.getEmail())
                    .password(account.getPassword())
@@ -40,6 +39,5 @@ public class UserDetailsServiceDB implements UserDetailsService {
                                  .map(Enum::name)
                                  .toArray(String[]::new))
                    .build();
-        //TODO add roles
     }
 }
