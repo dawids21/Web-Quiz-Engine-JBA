@@ -25,7 +25,7 @@ public class AccountService {
         this.objectMapper = objectMapper;
     }
 
-    public void addUser(AccountDTO accountDTO) {
+    public void addAccount(AccountDTO accountDTO) {
         if (accountRepository.existsByEmail(accountDTO.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                                               "Email " + accountDTO.getEmail() +

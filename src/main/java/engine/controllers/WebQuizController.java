@@ -58,7 +58,7 @@ public class WebQuizController {
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
     public String addUser(@Valid @RequestBody AccountDTO accountDTO) {
-        accountService.addUser(accountDTO);
+        accountService.addAccount(accountDTO);
         return "{\"success\": true}";
     }
 
