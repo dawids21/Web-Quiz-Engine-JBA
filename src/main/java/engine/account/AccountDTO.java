@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class AccountDTO {
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
-    private List<String> roles;
+    private List<Role.Authority> roles = new ArrayList<Role.Authority>();
 
     public AccountDTO() {
     }
@@ -44,11 +45,11 @@ public class AccountDTO {
         this.password = password;
     }
 
-    public List<String> getRoles() {
+    public List<Role.Authority> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role.Authority> roles) {
         this.roles = roles;
     }
 
