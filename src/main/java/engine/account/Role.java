@@ -11,7 +11,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
@@ -28,11 +29,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getAuthority() {
+    public Authority getAuthority() {
         return authority;
     }
 
-    public void setAuthority(String authority) {
+    public void setAuthority(Authority authority) {
         this.authority = authority;
     }
 
@@ -67,5 +68,9 @@ public class Role {
     public String toString() {
         return "Role{" + "id=" + id + ", authority='" + authority + '\'' + ", account=" +
                account + '}';
+    }
+
+    public enum Authority {
+        USER, ADMIN
     }
 }
