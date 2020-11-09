@@ -28,6 +28,7 @@ public class AccountService {
         var user = new Account();
         user.setEmail(accountDTO.getEmail());
         user.setPassword(passwordEncryptor.encrypt(accountDTO.getPassword()));
+        //TODO set authority
         accountRepository.save(user);
     }
 }

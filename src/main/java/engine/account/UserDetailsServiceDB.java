@@ -21,6 +21,7 @@ public class UserDetailsServiceDB implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
              throws UsernameNotFoundException {
         var account = accountRepository.findByEmail(username);
+        //TODO what if email not found
         return User.builder()
                    .username(account.getEmail())
                    .password(account.getPassword())

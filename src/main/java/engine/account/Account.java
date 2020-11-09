@@ -19,17 +19,19 @@ public class Account {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "Password is mandatory")
     @Length(min = 5, message = "Password should have at least 5 characters")
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Quiz> quizzes;
 
-    //TODO add roles
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Role> roles;
 
     public Account() {
     }
@@ -66,6 +68,14 @@ public class Account {
         this.quizzes = quizzes;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,17 +88,18 @@ public class Account {
         return getId() == account.getId() &&
                Objects.equals(getEmail(), account.getEmail()) &&
                Objects.equals(getPassword(), account.getPassword()) &&
-               Objects.equals(getQuizzes(), account.getQuizzes());
+               Objects.equals(getQuizzes(), account.getQuizzes()) &&
+               Objects.equals(getRoles(), account.getRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getPassword(), getQuizzes());
+        return Objects.hash(getId(), getEmail(), getPassword(), getQuizzes(), getRoles());
     }
 
     @Override
     public String toString() {
         return "Account{" + "id=" + id + ", email='" + email + '\'' + ", password='" +
-               password + '\'' + ", quizzes=" + quizzes + '}';
+               password + '\'' + ", quizzes=" + quizzes + ", roles=" + roles + '}';
     }
 }
