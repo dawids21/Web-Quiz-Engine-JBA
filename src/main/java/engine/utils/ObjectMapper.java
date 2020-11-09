@@ -1,5 +1,8 @@
 package engine.utils;
 
+import engine.account.Account;
+import engine.account.AccountDTO;
+import engine.account.Role;
 import engine.models.*;
 
 import java.util.stream.Collectors;
@@ -33,5 +36,14 @@ public class ObjectMapper {
         return quiz;
     }
 
-    //TODO add mapper to AccountDTO
+    public AccountDTO mapAccountToAccountDTO(Account source) {
+        var account = new AccountDTO();
+        account.setEmail(source.getEmail());
+        account.setPassword(source.getPassword());
+        account.setRoles(source.getRoles()
+                               .stream()
+                               .map(Role::getAuthority)
+                               .collect(Collectors.toList()));
+        return account;
+    }
 }
