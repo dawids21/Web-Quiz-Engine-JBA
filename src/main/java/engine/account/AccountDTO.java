@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Objects;
 
 public class AccountDTO {
@@ -16,6 +17,8 @@ public class AccountDTO {
     @NotBlank(message = "Password is mandatory")
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
+
+    private List<String> roles;
 
     public AccountDTO() {
     }
@@ -41,6 +44,14 @@ public class AccountDTO {
         this.password = password;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -49,19 +60,20 @@ public class AccountDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountDTO accountDTO = (AccountDTO) o;
-        return Objects.equals(getEmail(), accountDTO.getEmail()) &&
-               Objects.equals(getPassword(), accountDTO.getPassword());
+        AccountDTO that = (AccountDTO) o;
+        return Objects.equals(getEmail(), that.getEmail()) &&
+               Objects.equals(getPassword(), that.getPassword()) &&
+               Objects.equals(getRoles(), that.getRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getPassword());
+        return Objects.hash(getEmail(), getPassword(), getRoles());
     }
 
     @Override
     public String toString() {
         return "AccountDTO{" + "email='" + email + '\'' + ", password='" + password +
-               '\'' + '}';
+               '\'' + ", roles=" + roles + '}';
     }
 }
