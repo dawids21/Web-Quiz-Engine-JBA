@@ -1,5 +1,6 @@
 package engine.account;
 
+import engine.utils.ObjectMapper;
 import engine.utils.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,15 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncryptor passwordEncryptor;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public AccountService(AccountRepository accountRepository,
-                          PasswordEncryptor passwordEncryptor) {
+                          PasswordEncryptor passwordEncryptor,
+                          ObjectMapper objectMapper) {
         this.accountRepository = accountRepository;
         this.passwordEncryptor = passwordEncryptor;
+        this.objectMapper = objectMapper;
     }
 
     public void addUser(AccountDTO accountDTO) {
