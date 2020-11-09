@@ -1,11 +1,11 @@
 package engine.controllers;
 
+import engine.account.AccountDTO;
+import engine.account.AccountService;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
-import engine.models.UserDTO;
 import engine.services.QuizService;
-import engine.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -26,12 +26,12 @@ import java.util.Set;
 public class WebQuizController {
 
     private final QuizService quizService;
-    private final UserService userService;
+    private final AccountService accountService;
 
     @Autowired
-    public WebQuizController(QuizService quizService, UserService userService) {
+    public WebQuizController(QuizService quizService, AccountService accountService) {
         this.quizService = quizService;
-        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
@@ -57,8 +57,8 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
-    public String addUser(@Valid @RequestBody UserDTO userDTO) {
-        userService.addUser(userDTO);
+    public String addUser(@Valid @RequestBody AccountDTO accountDTO) {
+        accountService.addAccount(accountDTO);
         return "{\"success\": true}";
     }
 

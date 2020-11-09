@@ -1,13 +1,15 @@
-package engine.models;
+package engine.account;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class UserDTO {
+public class AccountDTO {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid")
@@ -17,10 +19,12 @@ public class UserDTO {
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
-    public UserDTO() {
+    private List<Role.Authority> roles = new ArrayList<Role.Authority>();
+
+    public AccountDTO() {
     }
 
-    public UserDTO(@Valid String email, @Valid String password) {
+    public AccountDTO(@Valid String email, @Valid String password) {
         this.email = email;
         this.password = password;
     }
@@ -41,6 +45,14 @@ public class UserDTO {
         this.password = password;
     }
 
+    public List<Role.Authority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role.Authority> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -49,19 +61,20 @@ public class UserDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(getEmail(), userDTO.getEmail()) &&
-               Objects.equals(getPassword(), userDTO.getPassword());
+        AccountDTO that = (AccountDTO) o;
+        return Objects.equals(getEmail(), that.getEmail()) &&
+               Objects.equals(getPassword(), that.getPassword()) &&
+               Objects.equals(getRoles(), that.getRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getPassword());
+        return Objects.hash(getEmail(), getPassword(), getRoles());
     }
 
     @Override
     public String toString() {
-        return "UserDTO{" + "email='" + email + '\'' + ", password='" + password + '\'' +
-               '}';
+        return "AccountDTO{" + "email='" + email + '\'' + ", password='" + password +
+               '\'' + ", roles=" + roles + '}';
     }
 }
