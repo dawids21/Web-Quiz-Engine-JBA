@@ -7,25 +7,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserDetailsServiceDB implements UserDetailsService {
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @Autowired
-    public UserDetailsServiceDB(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public UserDetailsServiceDB(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @Override
+    //TODO what does @Transactional mean?
+    @Transactional
     public UserDetails loadUserByUsername(String username)
              throws UsernameNotFoundException {
-        var account = accountRepository.findByEmail(username);
+        AccountDTO account = null;
+        try {
+            account = accountService.getAccount(username);
+        } catch (AccountNotFoundException e) {
+            throw new UsernameNotFoundException("Account " + username + " not found");
+        }
+        System.out.println(account);
         //TODO what if email not found
         return User.builder()
                    .username(account.getEmail())
                    .password(account.getPassword())
-                   .roles("ADMIN")
+                   .roles(account.getRoles()
+                                 .stream()
+                                 .map(Enum::name)
+                                 .toArray(String[]::new))
                    .build();
         //TODO add roles
     }
