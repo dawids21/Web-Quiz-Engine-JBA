@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+
 @Component
 public class AccountService {
 
@@ -25,10 +27,15 @@ public class AccountService {
                                               "Email " + accountDTO.getEmail() +
                                               " already exists");
         }
-        var user = new Account();
-        user.setEmail(accountDTO.getEmail());
-        user.setPassword(passwordEncryptor.encrypt(accountDTO.getPassword()));
-        //TODO set authority
-        accountRepository.save(user);
+        var account = new Account();
+        account.setEmail(accountDTO.getEmail());
+        account.setPassword(passwordEncryptor.encrypt(accountDTO.getPassword()));
+        var role = new Role();
+        role.setAccount(account);
+        role.setAuthority(Role.Authority.USER);
+        var roles = new ArrayList<Role>();
+        roles.add(role);
+        account.setRoles(roles);
+        accountRepository.save(account);
     }
 }
