@@ -1,7 +1,5 @@
 package engine.quiz;
 
-import engine.account.AccountDao;
-import engine.account.AccountDto;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,15 +20,13 @@ public class QuizRestController {
 
     private final QuizDao quizDao;
     private final QuizChecker quizChecker;
-    private final AccountDao accountDao;
     private final ErrorsExtractor errorsExtractor;
 
     @Autowired
     public QuizRestController(QuizDao quizDao, QuizChecker quizChecker,
-                              AccountDao accountDao, ErrorsExtractor errorsExtractor) {
+                              ErrorsExtractor errorsExtractor) {
         this.quizDao = quizDao;
         this.quizChecker = quizChecker;
-        this.accountDao = accountDao;
         this.errorsExtractor = errorsExtractor;
     }
 
@@ -54,12 +50,6 @@ public class QuizRestController {
     public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
         return new AnswerFeedback(quizChecker.checkAnswer(id, body.get("answer")));
-    }
-
-    @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
-    public String addUser(@Valid @RequestBody AccountDto accountDTO) {
-        accountDao.addAccount(accountDTO);
-        return "{\"success\": true}";
     }
 
     //TODO add delete endpoint
