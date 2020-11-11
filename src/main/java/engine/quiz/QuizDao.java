@@ -56,4 +56,8 @@ public class QuizDao {
         return objectMapper.mapQuizToQuizDTOWithoutAnswer(quiz);
     }
 
+    public void deleteQuizById(long id) {
+        //TODO implement deleteQuizById
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
 }
