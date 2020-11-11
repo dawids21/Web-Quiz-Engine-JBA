@@ -19,7 +19,7 @@ public class AccountDto {
     @Length(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
-    private List<Role.Authority> roles = new ArrayList<Role.Authority>();
+    private List<Role.Authority> roles = new ArrayList<>();
 
     public AccountDto() {
     }
