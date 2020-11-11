@@ -77,6 +77,16 @@ public class Account {
         this.roles = roles;
     }
 
+    public void addQuiz(Quiz quiz) {
+        quizzes.add(quiz);
+        quiz.setOwner(this);
+    }
+
+    public void removeQuiz(Quiz quiz) {
+        quizzes.remove(quiz);
+        quiz.setOwner(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
