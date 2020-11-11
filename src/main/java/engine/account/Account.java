@@ -4,7 +4,6 @@ import engine.quiz.Quiz;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Account {
     private long id;
 
     @NotBlank(message = "Email is mandatory")
-    @Email(message = "Email is not valid")
+    @EmailConstraint(message = "Email is not valid")
     @Column(unique = true, nullable = false)
     private String email;
 
