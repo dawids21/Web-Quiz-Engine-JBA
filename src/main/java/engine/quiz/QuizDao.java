@@ -57,7 +57,11 @@ public class QuizDao {
     }
 
     public void deleteQuizById(long id) {
-        //TODO implement deleteQuizById
-        throw new UnsupportedOperationException("Not implemented yet");
+        var quiz = quizRepository.findById(id)
+                                 .orElseThrow(() -> new ResponseStatusException(
+                                          HttpStatus.NOT_FOUND, "Quiz not found"));
+        quiz.getOwner()
+            .removeQuiz(quiz);
+        quizRepository.delete(quiz);
     }
 }
