@@ -2,16 +2,15 @@ package engine.quiz;
 
 import engine.account.AccountDao;
 import engine.account.AccountDto;
+import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,13 +23,15 @@ public class QuizRestController {
     private final QuizDao quizDao;
     private final QuizChecker quizChecker;
     private final AccountDao accountDao;
+    private final ErrorsExtractor errorsExtractor;
 
     @Autowired
     public QuizRestController(QuizDao quizDao, QuizChecker quizChecker,
-                              AccountDao accountDao) {
+                              AccountDao accountDao, ErrorsExtractor errorsExtractor) {
         this.quizDao = quizDao;
         this.quizChecker = quizChecker;
         this.accountDao = accountDao;
+        this.errorsExtractor = errorsExtractor;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
@@ -67,32 +68,14 @@ public class QuizRestController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(
              MethodArgumentNotValidException exception) {
-        Map<String, String> errors = new HashMap<>();
-        exception.getBindingResult()
-                 .getAllErrors()
-                 .forEach(error -> {
-                     var fieldName = ((FieldError) error).getField();
-                     var errorMessage = error.getDefaultMessage();
-                     errors.put(fieldName, errorMessage);
-                 });
-        return errors;
+        return errorsExtractor.getExceptionErrorMap(exception);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public Map<String, String> handleConstraintViolationException(
              ConstraintViolationException exception) {
-        Map<String, String> errors = new HashMap<>();
-        exception.getConstraintViolations()
-                 .forEach(constraintViolation -> {
-                     var fieldName = constraintViolation.getPropertyPath()
-                                                        .toString();
-                     var value = constraintViolation.getInvalidValue()
-                                                    .toString();
-                     var message = constraintViolation.getMessage();
-                     errors.put(fieldName, value);
-                     errors.put("message", message);
-                 });
-        return errors;
+        return errorsExtractor.getExceptionErrorsMap(exception);
     }
+
 }
