@@ -11,17 +11,14 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Component
-public class QuizService {
+public class QuizDao {
 
     private final QuizRepository quizRepository;
-    private final QuizChecker quizChecker;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public QuizService(QuizRepository quizRepository, QuizChecker quizChecker,
-                       ObjectMapper objectMapper) {
+    public QuizDao(QuizRepository quizRepository, ObjectMapper objectMapper) {
         this.quizRepository = quizRepository;
-        this.quizChecker = quizChecker;
         this.objectMapper = objectMapper;
     }
 

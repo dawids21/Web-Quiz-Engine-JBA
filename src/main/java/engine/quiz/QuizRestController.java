@@ -21,14 +21,14 @@ import java.util.Set;
 @RequestMapping(path = "/api")
 public class QuizRestController {
 
-    private final QuizService quizService;
+    private final QuizDao quizDao;
     private final QuizChecker quizChecker;
     private final AccountDao accountDao;
 
     @Autowired
-    public QuizRestController(QuizService quizService, QuizChecker quizChecker,
+    public QuizRestController(QuizDao quizDao, QuizChecker quizChecker,
                               AccountDao accountDao) {
-        this.quizService = quizService;
+        this.quizDao = quizDao;
         this.quizChecker = quizChecker;
         this.accountDao = accountDao;
     }
@@ -36,17 +36,17 @@ public class QuizRestController {
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizWithoutAnswerDto addQuiz(@Valid @RequestBody QuizInputDto quiz) {
         //TODO add quiz owner
-        return quizService.addQuiz(quiz);
+        return quizDao.addQuiz(quiz);
     }
 
     @GetMapping(path = "/quizzes")
     public List<QuizWithoutAnswerDto> getAllQuizzes() {
-        return quizService.getAllQuizzes();
+        return quizDao.getAllQuizzes();
     }
 
     @GetMapping(path = "/quizzes/{id}")
     public QuizWithoutAnswerDto getQuiz(@PathVariable long id) {
-        return quizService.getQuizById(id);
+        return quizDao.getQuizById(id);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
