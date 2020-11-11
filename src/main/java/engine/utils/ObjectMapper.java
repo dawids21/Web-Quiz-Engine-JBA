@@ -4,9 +4,11 @@ import engine.account.Account;
 import engine.account.AccountDto;
 import engine.account.Role;
 import engine.quiz.*;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class ObjectMapper {
 
     public Quiz mapQuizInputDTOToQuiz(QuizInputDto source) {
