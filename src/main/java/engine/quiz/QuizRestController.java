@@ -22,11 +22,14 @@ import java.util.Set;
 public class QuizRestController {
 
     private final QuizService quizService;
+    private final QuizChecker quizChecker;
     private final AccountDao accountDao;
 
     @Autowired
-    public QuizRestController(QuizService quizService, AccountDao accountDao) {
+    public QuizRestController(QuizService quizService, QuizChecker quizChecker,
+                              AccountDao accountDao) {
         this.quizService = quizService;
+        this.quizChecker = quizChecker;
         this.accountDao = accountDao;
     }
 
@@ -43,13 +46,13 @@ public class QuizRestController {
 
     @GetMapping(path = "/quizzes/{id}")
     public QuizWithoutAnswerDto getQuiz(@PathVariable long id) {
-        return quizService.getQuiz(id);
+        return quizService.getQuizById(id);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
     public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
-        return new AnswerFeedback(quizService.isAnswerCorrect(id, body.get("answer")));
+        return new AnswerFeedback(quizChecker.checkAnswer(id, body.get("answer")));
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -43,14 +42,11 @@ public class QuizService {
                             .collect(Collectors.toList());
     }
 
-    public QuizWithoutAnswerDto getQuiz(long id) {
+    public QuizWithoutAnswerDto getQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
                                           HttpStatus.NOT_FOUND, "Quiz not found"));
         return objectMapper.mapQuizToQuizDTOWithoutAnswer(quiz);
     }
 
-    public boolean isAnswerCorrect(long id, Set<Integer> answer) {
-        return quizChecker.checkAnswer(id, answer);
-    }
 }
