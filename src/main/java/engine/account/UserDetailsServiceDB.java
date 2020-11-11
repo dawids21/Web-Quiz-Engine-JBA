@@ -12,11 +12,11 @@ import javax.transaction.Transactional;
 @Service
 public class UserDetailsServiceDB implements UserDetailsService {
 
-    private final AccountService accountService;
+    private final AccountDao accountDao;
 
     @Autowired
-    public UserDetailsServiceDB(AccountService accountService) {
-        this.accountService = accountService;
+    public UserDetailsServiceDB(AccountDao accountDao) {
+        this.accountDao = accountDao;
     }
 
     @Override
@@ -26,11 +26,10 @@ public class UserDetailsServiceDB implements UserDetailsService {
              throws UsernameNotFoundException {
         AccountDTO account = null;
         try {
-            account = accountService.getAccount(username);
+            account = accountDao.getAccount(username);
         } catch (AccountNotFoundException e) {
             throw new UsernameNotFoundException("Account " + username + " not found");
         }
-        System.out.println(account);
         return User.builder()
                    .username(account.getEmail())
                    .password(account.getPassword())

@@ -1,7 +1,7 @@
 package engine.controllers;
 
 import engine.account.AccountDTO;
-import engine.account.AccountService;
+import engine.account.AccountDao;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
@@ -26,12 +26,12 @@ import java.util.Set;
 public class WebQuizController {
 
     private final QuizService quizService;
-    private final AccountService accountService;
+    private final AccountDao accountDao;
 
     @Autowired
-    public WebQuizController(QuizService quizService, AccountService accountService) {
+    public WebQuizController(QuizService quizService, AccountDao accountDao) {
         this.quizService = quizService;
-        this.accountService = accountService;
+        this.accountDao = accountDao;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
@@ -58,7 +58,7 @@ public class WebQuizController {
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
     public String addUser(@Valid @RequestBody AccountDTO accountDTO) {
-        accountService.addAccount(accountDTO);
+        accountDao.addAccount(accountDTO);
         return "{\"success\": true}";
     }
 
