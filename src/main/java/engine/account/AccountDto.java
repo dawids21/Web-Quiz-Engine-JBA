@@ -3,7 +3,6 @@ package engine.account;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Objects;
 public class AccountDto {
 
     @NotBlank(message = "Email is mandatory")
-    @Email(message = "Email is not valid")
+    @EmailConstraint(message = "Email is not valid")
     private String email;
 
     @NotBlank(message = "Password is mandatory")
