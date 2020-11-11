@@ -1,6 +1,7 @@
 package engine.quiz;
 
 import engine.account.AccountRepository;
+import engine.account.CurrentAccountService;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +19,16 @@ public class QuizDao {
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
 
+    private final CurrentAccountService currentAccountService;
+
     @Autowired
     public QuizDao(QuizRepository quizRepository, AccountRepository accountRepository,
-                   ObjectMapper objectMapper) {
+                   ObjectMapper objectMapper,
+                   CurrentAccountService currentAccountService) {
         this.quizRepository = quizRepository;
         this.accountRepository = accountRepository;
         this.objectMapper = objectMapper;
+        this.currentAccountService = currentAccountService;
     }
 
     public QuizWithoutAnswerDto addQuiz(QuizInputDto quizInput, String accountEmail) {
@@ -60,6 +65,14 @@ public class QuizDao {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
                                           HttpStatus.NOT_FOUND, "Quiz not found"));
+        if (!quiz.getOwner()
+                 .getEmail()
+                 .equals(currentAccountService.getCurrentAccount()
+                                              .getEmail())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                                              "Current user is not the quiz owner");
+        }
+
         quiz.getOwner()
             .removeQuiz(quiz);
         quizRepository.delete(quiz);

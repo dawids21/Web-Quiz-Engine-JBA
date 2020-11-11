@@ -36,7 +36,6 @@ public class QuizRestController {
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizWithoutAnswerDto addQuiz(@Valid @RequestBody QuizInputDto quiz) {
-        //TODO add quiz owner
         var account = currentAccountService.getCurrentAccount();
         return quizDao.addQuiz(quiz, account.getEmail());
     }
@@ -57,8 +56,8 @@ public class QuizRestController {
         return new AnswerFeedback(quizChecker.checkAnswer(id, body.get("answer")));
     }
 
-    //TODO add delete endpoint
     @DeleteMapping("/quizzes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuiz(@PathVariable long id) {
         quizDao.deleteQuizById(id);
     }
