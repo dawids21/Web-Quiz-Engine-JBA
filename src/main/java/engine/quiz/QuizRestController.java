@@ -59,6 +59,7 @@ public class QuizRestController {
 
     //TODO add delete endpoint
     @DeleteMapping("/quizzes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuiz(@PathVariable long id) {
         quizDao.deleteQuizById(id);
     }
