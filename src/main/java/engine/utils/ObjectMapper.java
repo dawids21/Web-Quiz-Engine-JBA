@@ -1,7 +1,7 @@
 package engine.utils;
 
 import engine.account.Account;
-import engine.account.AccountDTO;
+import engine.account.AccountDto;
 import engine.account.Role;
 import engine.models.*;
 
@@ -36,8 +36,8 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public AccountDTO mapAccountToAccountDTO(Account source) {
-        var account = new AccountDTO();
+    public AccountDto mapAccountToAccountDTO(Account source) {
+        var account = new AccountDto();
         account.setEmail(source.getEmail());
         account.setPassword(source.getPassword());
         account.setRoles(source.getRoles()

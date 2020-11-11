@@ -24,7 +24,7 @@ public class AccountDao {
         this.objectMapper = objectMapper;
     }
 
-    public void addAccount(AccountDTO accountDTO) {
+    public void addAccount(AccountDto accountDTO) {
         if (accountRepository.existsByEmail(accountDTO.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                                               "Email " + accountDTO.getEmail() +
@@ -42,13 +42,13 @@ public class AccountDao {
         accountRepository.save(account);
     }
 
-    public AccountDTO getAccount(long id) throws AccountNotFoundException {
+    public AccountDto getAccount(long id) throws AccountNotFoundException {
         var entity = accountRepository.findById(id)
                                       .orElseThrow(AccountNotFoundException::new);
         return objectMapper.mapAccountToAccountDTO(entity);
     }
 
-    public AccountDTO getAccount(String email) throws AccountNotFoundException {
+    public AccountDto getAccount(String email) throws AccountNotFoundException {
         var entity = accountRepository.findByEmail(email)
                                       .orElseThrow(AccountNotFoundException::new);
         return objectMapper.mapAccountToAccountDTO(entity);

@@ -24,7 +24,7 @@ public class UserDetailsServiceDB implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username)
              throws UsernameNotFoundException {
-        AccountDTO account = null;
+        AccountDto account = null;
         try {
             account = accountDao.getAccount(username);
         } catch (AccountNotFoundException e) {

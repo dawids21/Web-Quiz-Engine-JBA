@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AccountDTO {
+public class AccountDto {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email is not valid")
@@ -21,10 +21,10 @@ public class AccountDTO {
 
     private List<Role.Authority> roles = new ArrayList<Role.Authority>();
 
-    public AccountDTO() {
+    public AccountDto() {
     }
 
-    public AccountDTO(@Valid String email, @Valid String password) {
+    public AccountDto(@Valid String email, @Valid String password) {
         this.email = email;
         this.password = password;
     }
@@ -61,7 +61,7 @@ public class AccountDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountDTO that = (AccountDTO) o;
+        AccountDto that = (AccountDto) o;
         return Objects.equals(getEmail(), that.getEmail()) &&
                Objects.equals(getPassword(), that.getPassword()) &&
                Objects.equals(getRoles(), that.getRoles());
@@ -74,7 +74,7 @@ public class AccountDTO {
 
     @Override
     public String toString() {
-        return "AccountDTO{" + "email='" + email + '\'' + ", password='" + password +
+        return "AccountDto{" + "email='" + email + '\'' + ", password='" + password +
                '\'' + ", roles=" + roles + '}';
     }
 }

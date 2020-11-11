@@ -1,7 +1,7 @@
 package engine.controllers;
 
-import engine.account.AccountDTO;
 import engine.account.AccountDao;
+import engine.account.AccountDto;
 import engine.models.AnswerFeedback;
 import engine.models.QuizDTOWithoutAnswer;
 import engine.models.QuizInputDTO;
@@ -57,7 +57,7 @@ public class WebQuizController {
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
-    public String addUser(@Valid @RequestBody AccountDTO accountDTO) {
+    public String addUser(@Valid @RequestBody AccountDto accountDTO) {
         accountDao.addAccount(accountDTO);
         return "{\"success\": true}";
     }
