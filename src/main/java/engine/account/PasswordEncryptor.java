@@ -1,4 +1,4 @@
-package engine.utils;
+package engine.account;
 
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;

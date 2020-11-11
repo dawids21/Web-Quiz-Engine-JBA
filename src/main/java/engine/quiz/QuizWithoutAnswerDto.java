@@ -1,16 +1,16 @@
-package engine.models;
+package engine.quiz;
 
 import java.util.List;
 import java.util.Objects;
 
-public class QuizDTOWithoutAnswer {
+public class QuizWithoutAnswerDto {
 
     private long id;
     private String title;
     private String text;
     private List<String> options;
 
-    public QuizDTOWithoutAnswer() {
+    public QuizWithoutAnswerDto() {
     }
 
     public long getId() {
@@ -53,7 +53,7 @@ public class QuizDTOWithoutAnswer {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        QuizDTOWithoutAnswer that = (QuizDTOWithoutAnswer) o;
+        QuizWithoutAnswerDto that = (QuizWithoutAnswerDto) o;
         return getId() == that.getId() && Objects.equals(getTitle(), that.getTitle()) &&
                Objects.equals(getText(), that.getText()) &&
                Objects.equals(getOptions(), that.getOptions());
@@ -66,7 +66,7 @@ public class QuizDTOWithoutAnswer {
 
     @Override
     public String toString() {
-        return "QuizDTOWithoutAnswer{" + "id=" + id + ", title='" + title + '\'' +
+        return "QuizWithoutAnswerDto{" + "id=" + id + ", title='" + title + '\'' +
                ", text='" + text + '\'' + ", options=" + options + '}';
     }
 }

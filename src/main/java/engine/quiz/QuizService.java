@@ -1,7 +1,5 @@
-package engine.services;
+package engine.quiz;
 
-import engine.models.QuizDTOWithoutAnswer;
-import engine.models.QuizInputDTO;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +26,7 @@ public class QuizService {
         this.objectMapper = objectMapper;
     }
 
-    public QuizDTOWithoutAnswer addQuiz(QuizInputDTO quizInput) {
+    public QuizWithoutAnswerDto addQuiz(QuizInputDto quizInput) {
         var quiz = objectMapper.mapQuizInputDTOToQuiz(quizInput);
         quiz.getAnswers()
             .forEach(answer -> answer.setQuiz(quiz));
@@ -38,14 +36,14 @@ public class QuizService {
         return objectMapper.mapQuizToQuizDTOWithoutAnswer(quizEntity);
     }
 
-    public List<QuizDTOWithoutAnswer> getAllQuizzes() {
+    public List<QuizWithoutAnswerDto> getAllQuizzes() {
         return StreamSupport.stream(quizRepository.findAll()
                                                   .spliterator(), false)
                             .map(objectMapper::mapQuizToQuizDTOWithoutAnswer)
                             .collect(Collectors.toList());
     }
 
-    public QuizDTOWithoutAnswer getQuiz(long id) {
+    public QuizWithoutAnswerDto getQuiz(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
                                           HttpStatus.NOT_FOUND, "Quiz not found"));

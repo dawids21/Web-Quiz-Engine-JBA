@@ -3,13 +3,13 @@ package engine.utils;
 import engine.account.Account;
 import engine.account.AccountDto;
 import engine.account.Role;
-import engine.models.*;
+import engine.quiz.*;
 
 import java.util.stream.Collectors;
 
 public class ObjectMapper {
 
-    public Quiz mapQuizInputDTOToQuiz(QuizInputDTO source) {
+    public Quiz mapQuizInputDTOToQuiz(QuizInputDto source) {
         var quiz = new Quiz();
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());
@@ -24,8 +24,8 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public QuizDTOWithoutAnswer mapQuizToQuizDTOWithoutAnswer(Quiz source) {
-        var quiz = new QuizDTOWithoutAnswer();
+    public QuizWithoutAnswerDto mapQuizToQuizDTOWithoutAnswer(Quiz source) {
+        var quiz = new QuizWithoutAnswerDto();
         quiz.setId(source.getId());
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());

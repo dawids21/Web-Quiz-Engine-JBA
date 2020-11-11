@@ -1,4 +1,4 @@
-package engine.models;
+package engine.quiz;
 
 public class AnswerFeedback {
 

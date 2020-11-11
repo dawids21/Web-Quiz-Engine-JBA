@@ -1,4 +1,4 @@
-package engine.utils;
+package engine.account;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -47,7 +47,7 @@ class PasswordEncryptorTest {
     @Test
     void upgrade_encoding_returns_true_if_password_uses_non_default_algorithm() {
         final String oldPassword = new Pbkdf2PasswordEncoder().encode(password);
-       
+
         assertTrue(passwordEncryptor.upgradeEncoding(oldPassword));
     }
 }

@@ -1,11 +1,7 @@
-package engine.controllers;
+package engine.quiz;
 
 import engine.account.AccountDao;
 import engine.account.AccountDto;
-import engine.models.AnswerFeedback;
-import engine.models.QuizDTOWithoutAnswer;
-import engine.models.QuizInputDTO;
-import engine.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -23,30 +19,30 @@ import java.util.Set;
 @Component
 @RestController
 @RequestMapping(path = "/api")
-public class WebQuizController {
+public class QuizRestController {
 
     private final QuizService quizService;
     private final AccountDao accountDao;
 
     @Autowired
-    public WebQuizController(QuizService quizService, AccountDao accountDao) {
+    public QuizRestController(QuizService quizService, AccountDao accountDao) {
         this.quizService = quizService;
         this.accountDao = accountDao;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
-    public QuizDTOWithoutAnswer addQuiz(@Valid @RequestBody QuizInputDTO quiz) {
+    public QuizWithoutAnswerDto addQuiz(@Valid @RequestBody QuizInputDto quiz) {
         //TODO add quiz owner
         return quizService.addQuiz(quiz);
     }
 
     @GetMapping(path = "/quizzes")
-    public List<QuizDTOWithoutAnswer> getAllQuizzes() {
+    public List<QuizWithoutAnswerDto> getAllQuizzes() {
         return quizService.getAllQuizzes();
     }
 
     @GetMapping(path = "/quizzes/{id}")
-    public QuizDTOWithoutAnswer getQuiz(@PathVariable long id) {
+    public QuizWithoutAnswerDto getQuiz(@PathVariable long id) {
         return quizService.getQuiz(id);
     }
 

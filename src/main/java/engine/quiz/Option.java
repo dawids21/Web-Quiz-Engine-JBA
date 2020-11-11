@@ -1,4 +1,4 @@
-package engine.models;
+package engine.quiz;
 
 import javax.persistence.*;
 import java.util.Objects;

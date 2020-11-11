@@ -1,4 +1,4 @@
-package engine.models;
+package engine.quiz;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class QuizInputDTO {
+public class QuizInputDto {
 
     @NotBlank(message = "Title is mandatory")
     private String title;
@@ -22,7 +22,7 @@ public class QuizInputDTO {
 
     private Set<Integer> answer = new HashSet<>();
 
-    public QuizInputDTO() {
+    public QuizInputDto() {
     }
 
     public String getTitle() {
@@ -65,7 +65,7 @@ public class QuizInputDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        QuizInputDTO that = (QuizInputDTO) o;
+        QuizInputDto that = (QuizInputDto) o;
         return Objects.equals(getTitle(), that.getTitle()) &&
                Objects.equals(getText(), that.getText()) &&
                Objects.equals(getOptions(), that.getOptions()) &&
@@ -79,7 +79,7 @@ public class QuizInputDTO {
 
     @Override
     public String toString() {
-        return "QuizInputDTO{" + "title='" + title + '\'' + ", text='" + text + '\'' +
+        return "QuizInputDto{" + "title='" + title + '\'' + ", text='" + text + '\'' +
                ", options=" + options + ", answer=" + answer + '}';
     }
 }

@@ -1,7 +1,6 @@
 package engine.account;
 
 import engine.utils.ObjectMapper;
-import engine.utils.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
