@@ -1,5 +1,6 @@
 package engine.quiz;
 
+import engine.account.CurrentAccountService;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +22,23 @@ public class QuizRestController {
     private final QuizDao quizDao;
     private final QuizChecker quizChecker;
     private final ErrorsExtractor errorsExtractor;
+    private final CurrentAccountService currentAccountService;
 
     @Autowired
     public QuizRestController(QuizDao quizDao, QuizChecker quizChecker,
-                              ErrorsExtractor errorsExtractor) {
+                              ErrorsExtractor errorsExtractor,
+                              CurrentAccountService currentAccountService) {
         this.quizDao = quizDao;
         this.quizChecker = quizChecker;
         this.errorsExtractor = errorsExtractor;
+        this.currentAccountService = currentAccountService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizWithoutAnswerDto addQuiz(@Valid @RequestBody QuizInputDto quiz) {
         //TODO add quiz owner
-        return quizDao.addQuiz(quiz);
+        var account = currentAccountService.getCurrentAccount();
+        return quizDao.addQuiz(quiz, account.getEmail());
     }
 
     @GetMapping(path = "/quizzes")
