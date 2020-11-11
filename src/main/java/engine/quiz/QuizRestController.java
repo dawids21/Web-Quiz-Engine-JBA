@@ -58,6 +58,10 @@ public class QuizRestController {
     }
 
     //TODO add delete endpoint
+    @DeleteMapping("/quizzes/{id}")
+    public void deleteQuiz(@PathVariable long id) {
+        quizDao.deleteQuizById(id);
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
