@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class UserDetailsServiceDB implements UserDetailsService {
+public class DatabaseUserDetailsService implements UserDetailsService {
 
     private final AccountDao accountDao;
 
     @Autowired
-    public UserDetailsServiceDB(AccountDao accountDao) {
+    public DatabaseUserDetailsService(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
