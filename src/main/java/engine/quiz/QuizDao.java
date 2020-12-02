@@ -4,17 +4,17 @@ import engine.account.AccountRepository;
 import engine.account.CurrentAccountService;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 @Component
 public class QuizDao {
 
+    private static final int PAGE_SIZE = 10;
     private final QuizRepository quizRepository;
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
@@ -47,11 +47,10 @@ public class QuizDao {
         return objectMapper.mapQuizToQuizDTOWithoutAnswer(quizEntity);
     }
 
-    public List<QuizWithoutAnswerDto> getAllQuizzes() {
-        return StreamSupport.stream(quizRepository.findAll()
-                                                  .spliterator(), false)
-                            .map(objectMapper::mapQuizToQuizDTOWithoutAnswer)
-                            .collect(Collectors.toList());
+    public Page<QuizWithoutAnswerDto> getAllQuizzes(int page) {
+        Pageable paging = PageRequest.of(page, PAGE_SIZE);
+        return quizRepository.findAll(paging)
+                             .map(objectMapper::mapQuizToQuizDTOWithoutAnswer);
     }
 
     public QuizWithoutAnswerDto getQuizById(long id) {
