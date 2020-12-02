@@ -3,6 +3,7 @@ package engine.quiz;
 import engine.account.CurrentAccountService;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,8 +41,9 @@ public class QuizRestController {
     }
 
     @GetMapping(path = "/quizzes")
-    public List<QuizWithoutAnswerDto> getAllQuizzes() {
-        return quizDao.getAllQuizzes();
+    public Page<QuizWithoutAnswerDto> getAllQuizzes(
+             @RequestParam(defaultValue = "0") int page) {
+        return quizDao.getAllQuizzes(page);
     }
 
     @GetMapping(path = "/quizzes/{id}")
