@@ -41,8 +41,9 @@ public class QuizRestController {
     }
 
     @GetMapping(path = "/quizzes")
-    public List<QuizWithoutAnswerDto> getAllQuizzes() {
-        return quizDao.getAllQuizzes();
+    public List<QuizWithoutAnswerDto> getAllQuizzes(
+             @RequestParam(defaultValue = 0) int page) {
+        return quizDao.getAllQuizzes(page);
     }
 
     @GetMapping(path = "/quizzes/{id}")
