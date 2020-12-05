@@ -22,7 +22,6 @@ import java.util.Set;
 public class QuizRestController {
 
     private final QuizService quizService;
-    private final QuizChecker quizChecker;
     private final ErrorsExtractor errorsExtractor;
     private final CurrentAccountService currentAccountService;
 
@@ -31,7 +30,6 @@ public class QuizRestController {
                               ErrorsExtractor errorsExtractor,
                               CurrentAccountService currentAccountService) {
         this.quizService = quizService;
-        this.quizChecker = quizChecker;
         this.errorsExtractor = errorsExtractor;
         this.currentAccountService = currentAccountService;
     }
@@ -55,7 +53,7 @@ public class QuizRestController {
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
     public AnswerFeedback solveQuiz(@PathVariable long id,
                                     @Valid @RequestBody Map<String, Set<Integer>> body) {
-        return new AnswerFeedback(quizChecker.checkAnswer(id, body.get("answer")));
+        return new AnswerFeedback(quizService.checkAnswer(id, body.get("answer")));
     }
 
     @DeleteMapping("/quizzes/{id}")

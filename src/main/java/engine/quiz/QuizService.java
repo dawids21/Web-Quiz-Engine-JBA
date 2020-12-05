@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Set;
+
 @Service
 public class QuizService {
 
@@ -19,16 +21,18 @@ public class QuizService {
     private final QuizRepository quizRepository;
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
+    private final QuizChecker quizChecker;
 
     private final CurrentAccountService currentAccountService;
 
     @Autowired
     public QuizService(QuizRepository quizRepository, AccountRepository accountRepository,
-                       ObjectMapper objectMapper,
+                       ObjectMapper objectMapper, QuizChecker quizChecker,
                        CurrentAccountService currentAccountService) {
         this.quizRepository = quizRepository;
         this.accountRepository = accountRepository;
         this.objectMapper = objectMapper;
+        this.quizChecker = quizChecker;
         this.currentAccountService = currentAccountService;
     }
 
@@ -76,5 +80,9 @@ public class QuizService {
         quiz.getOwner()
             .removeQuiz(quiz);
         quizRepository.delete(quiz);
+    }
+
+    public boolean checkAnswer(long quizId, Set<Integer> answer) {
+        return quizChecker.checkAnswer(quizId, answer);
     }
 }
