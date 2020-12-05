@@ -1,4 +1,4 @@
-package engine.quiz;
+package engine.quiz.models;
 
 import engine.account.models.AccountEntity;
 

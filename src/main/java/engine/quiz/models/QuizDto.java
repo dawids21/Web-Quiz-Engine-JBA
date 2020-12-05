@@ -1,4 +1,4 @@
-package engine.quiz;
+package engine.quiz.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -3,10 +3,10 @@ package engine.utils;
 import engine.account.models.AccountDto;
 import engine.account.models.AccountEntity;
 import engine.account.models.Role;
-import engine.quiz.Answer;
-import engine.quiz.Option;
-import engine.quiz.QuizDto;
-import engine.quiz.QuizEntity;
+import engine.quiz.models.Answer;
+import engine.quiz.models.Option;
+import engine.quiz.models.QuizDto;
+import engine.quiz.models.QuizEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;

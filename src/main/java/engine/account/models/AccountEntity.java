@@ -1,7 +1,7 @@
 package engine.account.models;
 
 import engine.account.EmailConstraint;
-import engine.quiz.QuizEntity;
+import engine.quiz.models.QuizEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

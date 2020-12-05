@@ -1,6 +1,8 @@
 package engine.quiz;
 
 import engine.account.services.CurrentAccountService;
+import engine.quiz.models.AnswerFeedback;
+import engine.quiz.models.QuizDto;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

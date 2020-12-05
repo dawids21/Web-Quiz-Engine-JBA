@@ -1,5 +1,6 @@
 package engine.quiz;
 
+import engine.quiz.models.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
