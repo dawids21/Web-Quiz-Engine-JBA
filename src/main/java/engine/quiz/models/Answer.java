@@ -1,4 +1,4 @@
-package engine.quiz;
+package engine.quiz.models;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,7 +13,7 @@ public class Answer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+    private QuizEntity quizEntity;
 
     private int answer;
 
@@ -32,12 +32,12 @@ public class Answer {
         this.id = id;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    public QuizEntity getQuiz() {
+        return quizEntity;
     }
 
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public void setQuiz(QuizEntity quizEntity) {
+        this.quizEntity = quizEntity;
     }
 
     public int getAnswer() {
@@ -68,6 +68,7 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "Answer{" + "id=" + id + ", quiz=" + quiz + ", answer=" + answer + '}';
+        return "Answer{" + "id=" + id + ", quizEntity=" + quizEntity + ", answer=" +
+               answer + '}';
     }
 }

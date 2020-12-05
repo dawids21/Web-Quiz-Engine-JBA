@@ -1,6 +1,7 @@
-package engine.account;
+package engine.account.models;
 
-import engine.quiz.Quiz;
+import engine.account.EmailConstraint;
+import engine.quiz.models.QuizEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Accounts")
-public class Account {
+public class AccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +29,12 @@ public class Account {
     private String password;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<QuizEntity> quizEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
-    public Account() {
+    public AccountEntity() {
     }
 
     public long getId() {
@@ -60,12 +61,12 @@ public class Account {
         this.password = password;
     }
 
-    public List<Quiz> getQuizzes() {
-        return quizzes;
+    public List<QuizEntity> getQuizzes() {
+        return quizEntities;
     }
 
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
+    public void setQuizzes(List<QuizEntity> quizEntities) {
+        this.quizEntities = quizEntities;
     }
 
     public List<Role> getRoles() {
@@ -76,14 +77,14 @@ public class Account {
         this.roles = roles;
     }
 
-    public void addQuiz(Quiz quiz) {
-        quizzes.add(quiz);
-        quiz.setOwner(this);
+    public void addQuiz(QuizEntity quizEntity) {
+        quizEntities.add(quizEntity);
+        quizEntity.setOwner(this);
     }
 
-    public void removeQuiz(Quiz quiz) {
-        quizzes.remove(quiz);
-        quiz.setOwner(null);
+    public void removeQuiz(QuizEntity quizEntity) {
+        quizEntities.remove(quizEntity);
+        quizEntity.setOwner(null);
     }
 
     @Override
@@ -94,12 +95,12 @@ public class Account {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Account account = (Account) o;
-        return getId() == account.getId() &&
-               Objects.equals(getEmail(), account.getEmail()) &&
-               Objects.equals(getPassword(), account.getPassword()) &&
-               Objects.equals(getQuizzes(), account.getQuizzes()) &&
-               Objects.equals(getRoles(), account.getRoles());
+        AccountEntity accountEntity = (AccountEntity) o;
+        return getId() == accountEntity.getId() &&
+               Objects.equals(getEmail(), accountEntity.getEmail()) &&
+               Objects.equals(getPassword(), accountEntity.getPassword()) &&
+               Objects.equals(getQuizzes(), accountEntity.getQuizzes()) &&
+               Objects.equals(getRoles(), accountEntity.getRoles());
     }
 
     @Override
@@ -109,7 +110,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", email='" + email + '\'' + ", password='" +
-               password + '\'' + ", quizzes=" + quizzes + ", roles=" + roles + '}';
+        return "AccountEntity{" + "id=" + id + ", email='" + email + '\'' +
+               ", password='" + password + '\'' + ", quizEntities=" + quizEntities +
+               ", roles=" + roles + '}';
     }
 }

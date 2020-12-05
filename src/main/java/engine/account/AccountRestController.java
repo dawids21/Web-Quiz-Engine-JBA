@@ -1,5 +1,7 @@
 package engine.account;
 
+import engine.account.models.AccountDto;
+import engine.account.services.AccountService;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,17 +18,17 @@ import java.util.Map;
 @RequestMapping(path = "/api")
 public class AccountRestController {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
     private final ErrorsExtractor errorsExtractor = new ErrorsExtractor();
 
     @Autowired
-    public AccountRestController(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public AccountRestController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
     public String addUser(@Valid @RequestBody AccountDto accountDTO) {
-        accountDao.addAccount(accountDTO);
+        accountService.addAccount(accountDTO);
         return "{\"success\": true}";
     }
 

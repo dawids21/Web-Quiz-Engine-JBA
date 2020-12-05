@@ -1,5 +1,7 @@
-package engine.account;
+package engine.account.services;
 
+import engine.account.AccountNotFoundException;
+import engine.account.models.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +14,11 @@ import javax.transaction.Transactional;
 @Service
 public class DatabaseUserDetailsService implements UserDetailsService {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
 
     @Autowired
-    public DatabaseUserDetailsService(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public DatabaseUserDetailsService(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @Override
@@ -26,9 +28,10 @@ public class DatabaseUserDetailsService implements UserDetailsService {
              throws UsernameNotFoundException {
         AccountDto account = null;
         try {
-            account = accountDao.getAccount(username);
+            account = accountService.getAccount(username);
         } catch (AccountNotFoundException e) {
-            throw new UsernameNotFoundException("Account " + username + " not found");
+            throw new UsernameNotFoundException(
+                     "AccountEntity " + username + " not found");
         }
         return User.builder()
                    .username(account.getEmail())

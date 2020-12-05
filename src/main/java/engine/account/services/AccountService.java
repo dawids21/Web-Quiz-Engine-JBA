@@ -1,23 +1,30 @@
-package engine.account;
+package engine.account.services;
 
+import engine.account.AccountNotFoundException;
+import engine.account.AccountRepository;
+import engine.account.PasswordEncryptor;
+import engine.account.models.AccountDto;
+import engine.account.models.AccountEntity;
+import engine.account.models.Role;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 
-@Component
-public class AccountDao {
+@Service
+public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncryptor passwordEncryptor;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public AccountDao(AccountRepository accountRepository,
-                      PasswordEncryptor passwordEncryptor, ObjectMapper objectMapper) {
+    public AccountService(AccountRepository accountRepository,
+                          PasswordEncryptor passwordEncryptor,
+                          ObjectMapper objectMapper) {
         this.accountRepository = accountRepository;
         this.passwordEncryptor = passwordEncryptor;
         this.objectMapper = objectMapper;
@@ -29,7 +36,7 @@ public class AccountDao {
                                               "Email " + accountDTO.getEmail() +
                                               " already exists");
         }
-        var account = new Account();
+        var account = new AccountEntity();
         account.setEmail(accountDTO.getEmail());
         account.setPassword(passwordEncryptor.encrypt(accountDTO.getPassword()));
         var role = new Role();

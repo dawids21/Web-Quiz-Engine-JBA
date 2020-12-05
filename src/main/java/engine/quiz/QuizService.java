@@ -1,38 +1,43 @@
 package engine.quiz;
 
 import engine.account.AccountRepository;
-import engine.account.CurrentAccountService;
+import engine.account.services.CurrentAccountService;
+import engine.quiz.models.QuizDto;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@Component
-public class QuizDao {
+import java.util.Set;
+
+@Service
+public class QuizService {
 
     private static final int PAGE_SIZE = 10;
     private final QuizRepository quizRepository;
     private final AccountRepository accountRepository;
     private final ObjectMapper objectMapper;
+    private final QuizChecker quizChecker;
 
     private final CurrentAccountService currentAccountService;
 
     @Autowired
-    public QuizDao(QuizRepository quizRepository, AccountRepository accountRepository,
-                   ObjectMapper objectMapper,
-                   CurrentAccountService currentAccountService) {
+    public QuizService(QuizRepository quizRepository, AccountRepository accountRepository,
+                       ObjectMapper objectMapper, QuizChecker quizChecker,
+                       CurrentAccountService currentAccountService) {
         this.quizRepository = quizRepository;
         this.accountRepository = accountRepository;
         this.objectMapper = objectMapper;
+        this.quizChecker = quizChecker;
         this.currentAccountService = currentAccountService;
     }
 
-    public QuizWithoutAnswerDto addQuiz(QuizInputDto quizInput, String accountEmail) {
-        var quiz = objectMapper.mapQuizInputDTOToQuiz(quizInput);
+    public QuizDto addQuiz(QuizDto quizInput, String accountEmail) {
+        var quiz = objectMapper.mapQuizDtoToQuizEntity(quizInput);
         quiz.getAnswers()
             .forEach(answer -> answer.setQuiz(quiz));
 
@@ -44,26 +49,26 @@ public class QuizDao {
         accountEntity.addQuiz(quiz);
 
         var quizEntity = quizRepository.save(quiz);
-        return objectMapper.mapQuizToQuizDTOWithoutAnswer(quizEntity);
+        return objectMapper.mapQuizEntityToQuizDTO(quizEntity);
     }
 
-    public Page<QuizWithoutAnswerDto> getAllQuizzes(int page) {
+    public Page<QuizDto> getAllQuizzes(int page) {
         Pageable paging = PageRequest.of(page, PAGE_SIZE);
         return quizRepository.findAll(paging)
-                             .map(objectMapper::mapQuizToQuizDTOWithoutAnswer);
+                             .map(objectMapper::mapQuizEntityToQuizDTO);
     }
 
-    public QuizWithoutAnswerDto getQuizById(long id) {
+    public QuizDto getQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
-                                          HttpStatus.NOT_FOUND, "Quiz not found"));
-        return objectMapper.mapQuizToQuizDTOWithoutAnswer(quiz);
+                                          HttpStatus.NOT_FOUND, "QuizEntity not found"));
+        return objectMapper.mapQuizEntityToQuizDTO(quiz);
     }
 
     public void deleteQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
-                                          HttpStatus.NOT_FOUND, "Quiz not found"));
+                                          HttpStatus.NOT_FOUND, "QuizEntity not found"));
         if (!quiz.getOwner()
                  .getEmail()
                  .equals(currentAccountService.getCurrentAccount()
@@ -75,5 +80,9 @@ public class QuizDao {
         quiz.getOwner()
             .removeQuiz(quiz);
         quizRepository.delete(quiz);
+    }
+
+    public boolean checkAnswer(long quizId, Set<Integer> answer) {
+        return quizChecker.checkAnswer(quizId, answer);
     }
 }

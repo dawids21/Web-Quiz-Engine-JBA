@@ -1,5 +1,6 @@
 package engine.quiz;
 
+import engine.quiz.models.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class QuizChecker {
     public boolean checkAnswer(long id, Set<Integer> answer) {
         var quiz = repository.findById(id)
                              .orElseThrow(() -> new ResponseStatusException(
-                                      HttpStatus.NOT_FOUND, "Quiz not found"));
+                                      HttpStatus.NOT_FOUND, "QuizEntity not found"));
         var correctAnswer = quiz.getAnswers()
                                 .stream()
                                 .map(Answer::getAnswer)

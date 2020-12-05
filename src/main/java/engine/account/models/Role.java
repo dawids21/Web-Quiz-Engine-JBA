@@ -1,4 +1,4 @@
-package engine.account;
+package engine.account.models;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class Role {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    private AccountEntity accountEntity;
 
     public Role() {
     }
@@ -37,12 +37,12 @@ public class Role {
         this.authority = authority;
     }
 
-    public Account getAccount() {
-        return account;
+    public AccountEntity getAccount() {
+        return accountEntity;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccount(AccountEntity accountEntity) {
+        this.accountEntity = accountEntity;
     }
 
     @Override
@@ -66,8 +66,8 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" + "id=" + id + ", authority='" + authority + '\'' + ", account=" +
-               account + '}';
+        return "Role{" + "id=" + id + ", authority='" + authority + '\'' +
+               ", accountEntity=" + accountEntity + '}';
     }
 
     public enum Authority {

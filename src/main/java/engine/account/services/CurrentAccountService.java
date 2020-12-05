@@ -1,5 +1,7 @@
-package engine.account;
+package engine.account.services;
 
+import engine.account.AccountNotFoundException;
+import engine.account.models.AccountDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -7,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CurrentAccountService {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
 
-    public CurrentAccountService(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public CurrentAccountService(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     public AccountDto getCurrentAccount() {
@@ -23,7 +25,7 @@ public class CurrentAccountService {
         var userDetails = (UserDetails) auth.getPrincipal();
         AccountDto account = null;
         try {
-            account = accountDao.getAccount(userDetails.getUsername());
+            account = accountService.getAccount(userDetails.getUsername());
         } catch (AccountNotFoundException ignored) {
         }
 

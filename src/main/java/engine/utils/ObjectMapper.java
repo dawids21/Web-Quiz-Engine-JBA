@@ -1,9 +1,12 @@
 package engine.utils;
 
-import engine.account.Account;
-import engine.account.AccountDto;
-import engine.account.Role;
-import engine.quiz.*;
+import engine.account.models.AccountDto;
+import engine.account.models.AccountEntity;
+import engine.account.models.Role;
+import engine.quiz.models.Answer;
+import engine.quiz.models.Option;
+import engine.quiz.models.QuizDto;
+import engine.quiz.models.QuizEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -11,8 +14,8 @@ import java.util.stream.Collectors;
 @Component
 public class ObjectMapper {
 
-    public Quiz mapQuizInputDTOToQuiz(QuizInputDto source) {
-        var quiz = new Quiz();
+    public QuizEntity mapQuizDtoToQuizEntity(QuizDto source) {
+        var quiz = new QuizEntity();
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());
         quiz.setOptions(source.getOptions()
@@ -26,19 +29,7 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public QuizWithoutAnswerDto mapQuizToQuizDTOWithoutAnswer(Quiz source) {
-        var quiz = new QuizWithoutAnswerDto();
-        quiz.setId(source.getId());
-        quiz.setTitle(source.getTitle());
-        quiz.setText(source.getText());
-        quiz.setOptions(source.getOptions()
-                              .stream()
-                              .map(Option::getText)
-                              .collect(Collectors.toList()));
-        return quiz;
-    }
-
-    public AccountDto mapAccountToAccountDTO(Account source) {
+    public AccountDto mapAccountToAccountDTO(AccountEntity source) {
         var account = new AccountDto();
         account.setEmail(source.getEmail());
         account.setPassword(source.getPassword());
@@ -47,5 +38,21 @@ public class ObjectMapper {
                                .map(Role::getAuthority)
                                .collect(Collectors.toList()));
         return account;
+    }
+
+    public QuizDto mapQuizEntityToQuizDTO(QuizEntity source) {
+        var quiz = new QuizDto();
+        quiz.setId(source.getId());
+        quiz.setTitle(source.getTitle());
+        quiz.setText(source.getText());
+        quiz.setOptions(source.getOptions()
+                              .stream()
+                              .map(Option::getText)
+                              .collect(Collectors.toList()));
+        quiz.setAnswer(source.getAnswers()
+                             .stream()
+                             .map(Answer::getAnswer)
+                             .collect(Collectors.toSet()));
+        return quiz;
     }
 }

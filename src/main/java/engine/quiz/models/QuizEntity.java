@@ -1,6 +1,6 @@
-package engine.quiz;
+package engine.quiz.models;
 
-import engine.account.Account;
+import engine.account.models.AccountEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Quizzes")
-public class Quiz {
+public class QuizEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +21,15 @@ public class Quiz {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
-    private Account owner;
+    private AccountEntity owner;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
     private List<Option> options;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
 
-    public Quiz() {
+    public QuizEntity() {
     }
 
     public long getId() {
@@ -56,11 +56,11 @@ public class Quiz {
         this.text = text;
     }
 
-    public Account getOwner() {
+    public AccountEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(Account owner) {
+    public void setOwner(AccountEntity owner) {
         this.owner = owner;
     }
 
