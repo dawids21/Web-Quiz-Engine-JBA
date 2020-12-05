@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@Component
-public class QuizDao {
+@Service
+public class QuizService {
 
     private static final int PAGE_SIZE = 10;
     private final QuizRepository quizRepository;
@@ -22,9 +22,9 @@ public class QuizDao {
     private final CurrentAccountService currentAccountService;
 
     @Autowired
-    public QuizDao(QuizRepository quizRepository, AccountRepository accountRepository,
-                   ObjectMapper objectMapper,
-                   CurrentAccountService currentAccountService) {
+    public QuizService(QuizRepository quizRepository, AccountRepository accountRepository,
+                       ObjectMapper objectMapper,
+                       CurrentAccountService currentAccountService) {
         this.quizRepository = quizRepository;
         this.accountRepository = accountRepository;
         this.objectMapper = objectMapper;

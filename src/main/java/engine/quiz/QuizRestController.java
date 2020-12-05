@@ -19,16 +19,16 @@ import java.util.Set;
 @RequestMapping(path = "/api")
 public class QuizRestController {
 
-    private final QuizDao quizDao;
+    private final QuizService quizService;
     private final QuizChecker quizChecker;
     private final ErrorsExtractor errorsExtractor;
     private final CurrentAccountService currentAccountService;
 
     @Autowired
-    public QuizRestController(QuizDao quizDao, QuizChecker quizChecker,
+    public QuizRestController(QuizService quizService, QuizChecker quizChecker,
                               ErrorsExtractor errorsExtractor,
                               CurrentAccountService currentAccountService) {
-        this.quizDao = quizDao;
+        this.quizService = quizService;
         this.quizChecker = quizChecker;
         this.errorsExtractor = errorsExtractor;
         this.currentAccountService = currentAccountService;
@@ -37,17 +37,17 @@ public class QuizRestController {
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizDto addQuiz(@Valid @RequestBody QuizDto quiz) {
         var account = currentAccountService.getCurrentAccount();
-        return quizDao.addQuiz(quiz, account.getEmail());
+        return quizService.addQuiz(quiz, account.getEmail());
     }
 
     @GetMapping(path = "/quizzes")
     public Page<QuizDto> getAllQuizzes(@RequestParam(defaultValue = "0") int page) {
-        return quizDao.getAllQuizzes(page);
+        return quizService.getAllQuizzes(page);
     }
 
     @GetMapping(path = "/quizzes/{id}")
     public QuizDto getQuiz(@PathVariable long id) {
-        return quizDao.getQuizById(id);
+        return quizService.getQuizById(id);
     }
 
     @PostMapping(path = "/quizzes/{id}/solve", consumes = "application/json")
@@ -59,7 +59,7 @@ public class QuizRestController {
     @DeleteMapping("/quizzes/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuiz(@PathVariable long id) {
-        quizDao.deleteQuizById(id);
+        quizService.deleteQuizById(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
