@@ -48,4 +48,20 @@ public class ObjectMapper {
                                .collect(Collectors.toList()));
         return account;
     }
+
+    public QuizInputDto mapQuizEntityToQuizDTO(QuizEntity source) {
+        var quiz = new QuizInputDto();
+        quiz.setId(source.getId());
+        quiz.setTitle(source.getTitle());
+        quiz.setText(source.getText());
+        quiz.setOptions(source.getOptions()
+                              .stream()
+                              .map(Option::getText)
+                              .collect(Collectors.toList()));
+        quiz.setAnswer(source.getAnswers()
+                             .stream()
+                             .map(Answer::getAnswer)
+                             .collect(Collectors.toSet()));
+        return quiz;
+    }
 }
