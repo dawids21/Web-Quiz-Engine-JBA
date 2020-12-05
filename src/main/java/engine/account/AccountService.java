@@ -9,15 +9,16 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 
 @Component
-public class AccountDao {
+public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncryptor passwordEncryptor;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public AccountDao(AccountRepository accountRepository,
-                      PasswordEncryptor passwordEncryptor, ObjectMapper objectMapper) {
+    public AccountService(AccountRepository accountRepository,
+                          PasswordEncryptor passwordEncryptor,
+                          ObjectMapper objectMapper) {
         this.accountRepository = accountRepository;
         this.passwordEncryptor = passwordEncryptor;
         this.objectMapper = objectMapper;

@@ -12,11 +12,11 @@ import javax.transaction.Transactional;
 @Service
 public class DatabaseUserDetailsService implements UserDetailsService {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
 
     @Autowired
-    public DatabaseUserDetailsService(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public DatabaseUserDetailsService(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
              throws UsernameNotFoundException {
         AccountDto account = null;
         try {
-            account = accountDao.getAccount(username);
+            account = accountService.getAccount(username);
         } catch (AccountNotFoundException e) {
             throw new UsernameNotFoundException(
                      "AccountEntity " + username + " not found");

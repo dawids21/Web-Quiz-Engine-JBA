@@ -16,17 +16,17 @@ import java.util.Map;
 @RequestMapping(path = "/api")
 public class AccountRestController {
 
-    private final AccountDao accountDao;
+    private final AccountService accountService;
     private final ErrorsExtractor errorsExtractor = new ErrorsExtractor();
 
     @Autowired
-    public AccountRestController(AccountDao accountDao) {
-        this.accountDao = accountDao;
+    public AccountRestController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
     public String addUser(@Valid @RequestBody AccountDto accountDTO) {
-        accountDao.addAccount(accountDTO);
+        accountService.addAccount(accountDTO);
         return "{\"success\": true}";
     }
 
