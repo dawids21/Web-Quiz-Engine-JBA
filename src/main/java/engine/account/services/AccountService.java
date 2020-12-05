@@ -1,5 +1,8 @@
-package engine.account;
+package engine.account.services;
 
+import engine.account.AccountNotFoundException;
+import engine.account.AccountRepository;
+import engine.account.PasswordEncryptor;
 import engine.account.models.AccountDto;
 import engine.account.models.AccountEntity;
 import engine.account.models.Role;

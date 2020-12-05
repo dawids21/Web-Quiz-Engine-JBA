@@ -1,5 +1,6 @@
-package engine.account;
+package engine.account.services;
 
+import engine.account.AccountNotFoundException;
 import engine.account.models.AccountDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
