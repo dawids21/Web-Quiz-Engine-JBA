@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Quizzes")
-public class Quiz {
+public class QuizEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,13 @@ public class Quiz {
     @JoinColumn(name = "account_id", nullable = false)
     private AccountEntity owner;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
     private List<Option> options;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
 
-    public Quiz() {
+    public QuizEntity() {
     }
 
     public long getId() {

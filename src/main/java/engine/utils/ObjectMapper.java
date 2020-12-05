@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @Component
 public class ObjectMapper {
 
-    public Quiz mapQuizInputDTOToQuiz(QuizInputDto source) {
-        var quiz = new Quiz();
+    public QuizEntity mapQuizInputDTOToQuiz(QuizInputDto source) {
+        var quiz = new QuizEntity();
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());
         quiz.setOptions(source.getOptions()
@@ -26,7 +26,7 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public QuizWithoutAnswerDto mapQuizToQuizDTOWithoutAnswer(Quiz source) {
+    public QuizWithoutAnswerDto mapQuizToQuizDTOWithoutAnswer(QuizEntity source) {
         var quiz = new QuizWithoutAnswerDto();
         quiz.setId(source.getId());
         quiz.setTitle(source.getTitle());

@@ -56,14 +56,14 @@ public class QuizDao {
     public QuizWithoutAnswerDto getQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
-                                          HttpStatus.NOT_FOUND, "Quiz not found"));
+                                          HttpStatus.NOT_FOUND, "QuizEntity not found"));
         return objectMapper.mapQuizToQuizDTOWithoutAnswer(quiz);
     }
 
     public void deleteQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
-                                          HttpStatus.NOT_FOUND, "Quiz not found"));
+                                          HttpStatus.NOT_FOUND, "QuizEntity not found"));
         if (!quiz.getOwner()
                  .getEmail()
                  .equals(currentAccountService.getCurrentAccount()

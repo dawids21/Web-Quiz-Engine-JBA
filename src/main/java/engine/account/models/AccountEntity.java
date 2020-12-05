@@ -1,7 +1,7 @@
 package engine.account.models;
 
 import engine.account.EmailConstraint;
-import engine.quiz.Quiz;
+import engine.quiz.QuizEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -29,7 +29,7 @@ public class AccountEntity {
     private String password;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<QuizEntity> quizEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
@@ -61,12 +61,12 @@ public class AccountEntity {
         this.password = password;
     }
 
-    public List<Quiz> getQuizzes() {
-        return quizzes;
+    public List<QuizEntity> getQuizzes() {
+        return quizEntities;
     }
 
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
+    public void setQuizzes(List<QuizEntity> quizEntities) {
+        this.quizEntities = quizEntities;
     }
 
     public List<Role> getRoles() {
@@ -77,14 +77,14 @@ public class AccountEntity {
         this.roles = roles;
     }
 
-    public void addQuiz(Quiz quiz) {
-        quizzes.add(quiz);
-        quiz.setOwner(this);
+    public void addQuiz(QuizEntity quizEntity) {
+        quizEntities.add(quizEntity);
+        quizEntity.setOwner(this);
     }
 
-    public void removeQuiz(Quiz quiz) {
-        quizzes.remove(quiz);
-        quiz.setOwner(null);
+    public void removeQuiz(QuizEntity quizEntity) {
+        quizEntities.remove(quizEntity);
+        quizEntity.setOwner(null);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class AccountEntity {
     @Override
     public String toString() {
         return "AccountEntity{" + "id=" + id + ", email='" + email + '\'' +
-               ", password='" + password + '\'' + ", quizzes=" + quizzes + ", roles=" +
-               roles + '}';
+               ", password='" + password + '\'' + ", quizEntities=" + quizEntities +
+               ", roles=" + roles + '}';
     }
 }
