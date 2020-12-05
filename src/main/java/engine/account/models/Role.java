@@ -1,4 +1,4 @@
-package engine.account;
+package engine.account.models;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -1,5 +1,6 @@
 package engine.account;
 
+import engine.account.models.AccountDto;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

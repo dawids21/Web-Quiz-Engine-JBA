@@ -1,5 +1,6 @@
-package engine.account;
+package engine.account.models;
 
+import engine.account.EmailConstraint;
 import engine.quiz.Quiz;
 import org.hibernate.validator.constraints.Length;
 

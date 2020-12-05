@@ -1,6 +1,6 @@
 package engine.quiz;
 
-import engine.account.AccountEntity;
+import engine.account.models.AccountEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;

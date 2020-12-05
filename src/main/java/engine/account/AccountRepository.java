@@ -1,5 +1,6 @@
 package engine.account;
 
+import engine.account.models.AccountEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

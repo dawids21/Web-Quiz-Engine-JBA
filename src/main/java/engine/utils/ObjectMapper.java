@@ -1,8 +1,8 @@
 package engine.utils;
 
-import engine.account.AccountDto;
-import engine.account.AccountEntity;
-import engine.account.Role;
+import engine.account.models.AccountDto;
+import engine.account.models.AccountEntity;
+import engine.account.models.Role;
 import engine.quiz.*;
 import org.springframework.stereotype.Component;
 
