@@ -5,8 +5,8 @@ import engine.account.models.AccountEntity;
 import engine.account.models.Role;
 import engine.quiz.Answer;
 import engine.quiz.Option;
+import engine.quiz.QuizDto;
 import engine.quiz.QuizEntity;
-import engine.quiz.QuizInputDto;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class ObjectMapper {
 
-    public QuizEntity mapQuizInputDTOToQuiz(QuizInputDto source) {
+    public QuizEntity mapQuizDtoToQuizEntity(QuizDto source) {
         var quiz = new QuizEntity();
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());
@@ -40,8 +40,8 @@ public class ObjectMapper {
         return account;
     }
 
-    public QuizInputDto mapQuizEntityToQuizDTO(QuizEntity source) {
-        var quiz = new QuizInputDto();
+    public QuizDto mapQuizEntityToQuizDTO(QuizEntity source) {
+        var quiz = new QuizDto();
         quiz.setId(source.getId());
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());

@@ -35,18 +35,18 @@ public class QuizRestController {
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
-    public QuizInputDto addQuiz(@Valid @RequestBody QuizInputDto quiz) {
+    public QuizDto addQuiz(@Valid @RequestBody QuizDto quiz) {
         var account = currentAccountService.getCurrentAccount();
         return quizDao.addQuiz(quiz, account.getEmail());
     }
 
     @GetMapping(path = "/quizzes")
-    public Page<QuizInputDto> getAllQuizzes(@RequestParam(defaultValue = "0") int page) {
+    public Page<QuizDto> getAllQuizzes(@RequestParam(defaultValue = "0") int page) {
         return quizDao.getAllQuizzes(page);
     }
 
     @GetMapping(path = "/quizzes/{id}")
-    public QuizInputDto getQuiz(@PathVariable long id) {
+    public QuizDto getQuiz(@PathVariable long id) {
         return quizDao.getQuizById(id);
     }
 

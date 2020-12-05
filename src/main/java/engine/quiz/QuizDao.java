@@ -31,8 +31,8 @@ public class QuizDao {
         this.currentAccountService = currentAccountService;
     }
 
-    public QuizInputDto addQuiz(QuizInputDto quizInput, String accountEmail) {
-        var quiz = objectMapper.mapQuizInputDTOToQuiz(quizInput);
+    public QuizDto addQuiz(QuizDto quizInput, String accountEmail) {
+        var quiz = objectMapper.mapQuizDtoToQuizEntity(quizInput);
         quiz.getAnswers()
             .forEach(answer -> answer.setQuiz(quiz));
 
@@ -47,13 +47,13 @@ public class QuizDao {
         return objectMapper.mapQuizEntityToQuizDTO(quizEntity);
     }
 
-    public Page<QuizInputDto> getAllQuizzes(int page) {
+    public Page<QuizDto> getAllQuizzes(int page) {
         Pageable paging = PageRequest.of(page, PAGE_SIZE);
         return quizRepository.findAll(paging)
                              .map(objectMapper::mapQuizEntityToQuizDTO);
     }
 
-    public QuizInputDto getQuizById(long id) {
+    public QuizDto getQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
                                           HttpStatus.NOT_FOUND, "QuizEntity not found"));

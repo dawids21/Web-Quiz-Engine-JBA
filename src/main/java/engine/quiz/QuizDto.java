@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class QuizInputDto {
+public class QuizDto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
@@ -28,7 +28,7 @@ public class QuizInputDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Integer> answer = new HashSet<>();
 
-    public QuizInputDto() {
+    public QuizDto() {
     }
 
     public long getId() {
@@ -79,7 +79,7 @@ public class QuizInputDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        QuizInputDto that = (QuizInputDto) o;
+        QuizDto that = (QuizDto) o;
         return Objects.equals(getTitle(), that.getTitle()) &&
                Objects.equals(getText(), that.getText()) &&
                Objects.equals(getOptions(), that.getOptions()) &&
@@ -93,7 +93,7 @@ public class QuizInputDto {
 
     @Override
     public String toString() {
-        return "QuizInputDto{" + "title='" + title + '\'' + ", text='" + text + '\'' +
+        return "QuizDto{" + "title='" + title + '\'' + ", text='" + text + '\'' +
                ", options=" + options + ", answer=" + answer + '}';
     }
 }
