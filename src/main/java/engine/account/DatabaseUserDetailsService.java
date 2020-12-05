@@ -28,7 +28,8 @@ public class DatabaseUserDetailsService implements UserDetailsService {
         try {
             account = accountDao.getAccount(username);
         } catch (AccountNotFoundException e) {
-            throw new UsernameNotFoundException("Account " + username + " not found");
+            throw new UsernameNotFoundException(
+                     "AccountEntity " + username + " not found");
         }
         return User.builder()
                    .username(account.getEmail())

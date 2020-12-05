@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Accounts")
-public class Account {
+public class AccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,10 @@ public class Account {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Quiz> quizzes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
-    public Account() {
+    public AccountEntity() {
     }
 
     public long getId() {
@@ -94,12 +94,12 @@ public class Account {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Account account = (Account) o;
-        return getId() == account.getId() &&
-               Objects.equals(getEmail(), account.getEmail()) &&
-               Objects.equals(getPassword(), account.getPassword()) &&
-               Objects.equals(getQuizzes(), account.getQuizzes()) &&
-               Objects.equals(getRoles(), account.getRoles());
+        AccountEntity accountEntity = (AccountEntity) o;
+        return getId() == accountEntity.getId() &&
+               Objects.equals(getEmail(), accountEntity.getEmail()) &&
+               Objects.equals(getPassword(), accountEntity.getPassword()) &&
+               Objects.equals(getQuizzes(), accountEntity.getQuizzes()) &&
+               Objects.equals(getRoles(), accountEntity.getRoles());
     }
 
     @Override
@@ -109,7 +109,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", email='" + email + '\'' + ", password='" +
-               password + '\'' + ", quizzes=" + quizzes + ", roles=" + roles + '}';
+        return "AccountEntity{" + "id=" + id + ", email='" + email + '\'' +
+               ", password='" + password + '\'' + ", quizzes=" + quizzes + ", roles=" +
+               roles + '}';
     }
 }

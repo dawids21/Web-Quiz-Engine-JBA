@@ -1,6 +1,6 @@
 package engine.quiz;
 
-import engine.account.Account;
+import engine.account.AccountEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -21,7 +21,7 @@ public class Quiz {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
-    private Account owner;
+    private AccountEntity owner;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Option> options;
@@ -56,11 +56,11 @@ public class Quiz {
         this.text = text;
     }
 
-    public Account getOwner() {
+    public AccountEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(Account owner) {
+    public void setOwner(AccountEntity owner) {
         this.owner = owner;
     }
 

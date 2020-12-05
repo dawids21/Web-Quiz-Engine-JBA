@@ -29,7 +29,7 @@ public class AccountDao {
                                               "Email " + accountDTO.getEmail() +
                                               " already exists");
         }
-        var account = new Account();
+        var account = new AccountEntity();
         account.setEmail(accountDTO.getEmail());
         account.setPassword(passwordEncryptor.encrypt(accountDTO.getPassword()));
         var role = new Role();

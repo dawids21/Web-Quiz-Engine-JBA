@@ -1,7 +1,7 @@
 package engine.utils;
 
-import engine.account.Account;
 import engine.account.AccountDto;
+import engine.account.AccountEntity;
 import engine.account.Role;
 import engine.quiz.*;
 import org.springframework.stereotype.Component;
@@ -38,7 +38,7 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public AccountDto mapAccountToAccountDTO(Account source) {
+    public AccountDto mapAccountToAccountDTO(AccountEntity source) {
         var account = new AccountDto();
         account.setEmail(source.getEmail());
         account.setPassword(source.getPassword());
