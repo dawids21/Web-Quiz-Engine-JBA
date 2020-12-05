@@ -1,5 +1,7 @@
 package engine.quiz;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,6 +11,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class QuizInputDto {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private long id;
 
     @NotBlank(message = "Title is mandatory")
     private String title;
@@ -20,9 +25,18 @@ public class QuizInputDto {
     @Size(min = 2, message = "Must have at least 2 options")
     private List<String> options;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Integer> answer = new HashSet<>();
 
     public QuizInputDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {

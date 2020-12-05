@@ -3,7 +3,10 @@ package engine.utils;
 import engine.account.models.AccountDto;
 import engine.account.models.AccountEntity;
 import engine.account.models.Role;
-import engine.quiz.*;
+import engine.quiz.Answer;
+import engine.quiz.Option;
+import engine.quiz.QuizEntity;
+import engine.quiz.QuizInputDto;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -23,18 +26,6 @@ public class ObjectMapper {
                               .stream()
                               .map(Answer::new)
                               .collect(Collectors.toSet()));
-        return quiz;
-    }
-
-    public QuizWithoutAnswerDto mapQuizToQuizDTOWithoutAnswer(QuizEntity source) {
-        var quiz = new QuizWithoutAnswerDto();
-        quiz.setId(source.getId());
-        quiz.setTitle(source.getTitle());
-        quiz.setText(source.getText());
-        quiz.setOptions(source.getOptions()
-                              .stream()
-                              .map(Option::getText)
-                              .collect(Collectors.toList()));
         return quiz;
     }
 
