@@ -38,8 +38,10 @@ public class QuizService {
         this.currentAccountService = currentAccountService;
     }
 
-    public QuizDto addQuiz(QuizDto quizInput, String accountEmail) {
+    public QuizDto addQuiz(QuizDto quizInput) {
         var quiz = objectMapper.mapDtoToEntity(quizInput);
+        var accountEmail = currentAccountService.getCurrentAccount()
+                                                .getEmail();
         quiz.getAnswers()
             .forEach(answer -> answer.setQuiz(quiz));
 
