@@ -1,7 +1,7 @@
 package engine.quiz;
 
-import engine.account.services.CurrentAccountService;
 import engine.quiz.models.AnswerFeedback;
+import engine.quiz.models.CompletionDto;
 import engine.quiz.models.QuizDto;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +55,11 @@ public class QuizRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuiz(@PathVariable long id) {
         quizService.deleteQuizById(id);
+    }
+
+    @GetMapping("/quizzes/completed")
+    public Page<CompletionDto> getCompleted(@RequestParam(defaultValue = "0") int page) {
+        return quizService.getCompleted(page);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
