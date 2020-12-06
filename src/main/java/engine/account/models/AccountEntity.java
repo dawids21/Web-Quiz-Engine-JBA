@@ -96,24 +96,24 @@ public class AccountEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountEntity accountEntity = (AccountEntity) o;
-        return getId() == accountEntity.getId() &&
-               Objects.equals(getEmail(), accountEntity.getEmail()) &&
-               Objects.equals(getPassword(), accountEntity.getPassword()) &&
-               Objects.equals(getQuizEntities(), accountEntity.getQuizEntities()) &&
-               Objects.equals(getRoles(), accountEntity.getRoles());
+        AccountEntity that = (AccountEntity) o;
+        return getId() == that.getId() && Objects.equals(getEmail(), that.getEmail()) &&
+               Objects.equals(getPassword(), that.getPassword()) &&
+               Objects.equals(getQuizEntities(), that.getQuizEntities()) &&
+               Objects.equals(getRoles(), that.getRoles()) &&
+               Objects.equals(getCompletionEntities(), that.getCompletionEntities());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getEmail(), getPassword(), getQuizEntities(),
-                            getRoles());
+                            getRoles(), getCompletionEntities());
     }
 
     @Override
     public String toString() {
         return "AccountEntity{" + "id=" + id + ", email='" + email + '\'' +
                ", password='" + password + '\'' + ", quizEntities=" + quizEntities +
-               ", roles=" + roles + '}';
+               ", roles=" + roles + ", completionEntities=" + completionEntities + '}';
     }
 }
