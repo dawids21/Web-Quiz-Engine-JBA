@@ -1,7 +1,6 @@
 package engine.quiz.models;
 
 import engine.account.models.AccountEntity;
-import engine.account.models.CompletionEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

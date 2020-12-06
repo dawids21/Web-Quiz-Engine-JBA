@@ -1,6 +1,6 @@
-package engine.account.models;
+package engine.quiz.models;
 
-import engine.quiz.models.QuizEntity;
+import engine.account.models.AccountEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

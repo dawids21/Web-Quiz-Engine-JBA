@@ -1,6 +1,7 @@
 package engine.account.models;
 
 import engine.account.EmailConstraint;
+import engine.quiz.models.CompletionEntity;
 import engine.quiz.models.QuizEntity;
 import org.hibernate.validator.constraints.Length;
 

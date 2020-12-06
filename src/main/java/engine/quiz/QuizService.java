@@ -1,8 +1,8 @@
 package engine.quiz;
 
 import engine.account.AccountRepository;
-import engine.account.models.CompletionEntity;
 import engine.account.services.CurrentAccountService;
+import engine.quiz.models.CompletionEntity;
 import engine.quiz.models.QuizDto;
 import engine.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package engine.account.models;
+package engine.quiz.models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
