@@ -34,6 +34,9 @@ public class AccountEntity {
     @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
+    private List<CompletionEntity> completionEntities = new ArrayList<>();
+
     public AccountEntity() {
     }
 
@@ -77,8 +80,12 @@ public class AccountEntity {
         this.roles = roles;
     }
 
+    public List<CompletionEntity> getCompletionEntities() {
+        return completionEntities;
     }
 
+    public void setCompletionEntities(List<CompletionEntity> completionEntities) {
+        this.completionEntities = completionEntities;
     }
 
     @Override
