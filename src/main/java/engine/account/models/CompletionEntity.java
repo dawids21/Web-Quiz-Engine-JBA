@@ -3,7 +3,7 @@ package engine.account.models;
 import engine.quiz.models.QuizEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +15,7 @@ public class CompletionEntity {
     private long id;
 
     @Column(name = "completed_at")
-    private Date completedAt;
+    private LocalDateTime completedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
@@ -36,11 +36,11 @@ public class CompletionEntity {
         this.id = id;
     }
 
-    public Date getCompletedAt() {
+    public LocalDateTime getCompletedAt() {
         return completedAt;
     }
 
-    public void setCompletedAt(Date completedAt) {
+    public void setCompletedAt(LocalDateTime completedAt) {
         this.completedAt = completedAt;
     }
 
