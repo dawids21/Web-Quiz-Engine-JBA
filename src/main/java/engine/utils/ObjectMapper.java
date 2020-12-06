@@ -1,8 +1,6 @@
 package engine.utils;
 
-import engine.account.models.AccountDto;
-import engine.account.models.AccountEntity;
-import engine.account.models.Role;
+import engine.account.models.*;
 import engine.quiz.models.Answer;
 import engine.quiz.models.Option;
 import engine.quiz.models.QuizDto;
@@ -54,5 +52,10 @@ public class ObjectMapper {
                              .map(Answer::getAnswer)
                              .collect(Collectors.toSet()));
         return quiz;
+    }
+
+    public CompletionDto mapEntityToDto(CompletionEntity source) {
+        var target = new CompletionDto(source.getId(), source.getCompletedAt());
+        return target;
     }
 }
