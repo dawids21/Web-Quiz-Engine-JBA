@@ -1,6 +1,7 @@
 package engine.quiz;
 
 import engine.account.AccountRepository;
+import engine.account.models.CompletionEntity;
 import engine.account.services.CurrentAccountService;
 import engine.quiz.models.QuizDto;
 import engine.utils.ObjectMapper;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -80,6 +82,27 @@ public class QuizService {
     }
 
     public boolean checkAnswer(long quizId, Set<Integer> answer) {
-        return quizChecker.checkAnswer(quizId, answer);
+        var quizEntity = quizRepository.findById(quizId)
+                                       .orElseThrow(() -> new ResponseStatusException(
+                                                HttpStatus.NOT_FOUND,
+                                                "QuizEntity not found"));
+
+        var solved =
+                 quizChecker.checkAnswer(objectMapper.mapQuizEntityToQuizDTO(quizEntity),
+                                         answer);
+        if (solved) {
+            var time = LocalDateTime.now();
+            var accountEmail = currentAccountService.getCurrentAccount()
+                                                    .getEmail();
+            var account = accountRepository.findByEmail(accountEmail)
+                                           .orElseThrow();
+            var completion = new CompletionEntity();
+            completion.setCompletedAt(time);
+            completion.setAccountEntity(account);
+            completion.setQuizEntity(quizEntity);
+            account.addCompletion(completion);
+            accountRepository.save(account);
+        }
+        return solved;
     }
 }

@@ -1,32 +1,17 @@
 package engine.quiz;
 
-import engine.quiz.models.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import engine.quiz.models.QuizDto;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class QuizChecker {
 
-    private final QuizRepository repository;
-
-    @Autowired
-    public QuizChecker(QuizRepository repository) {
-        this.repository = repository;
+    public QuizChecker() {
     }
 
-    public boolean checkAnswer(long id, Set<Integer> answer) {
-        var quiz = repository.findById(id)
-                             .orElseThrow(() -> new ResponseStatusException(
-                                      HttpStatus.NOT_FOUND, "QuizEntity not found"));
-        var correctAnswer = quiz.getAnswers()
-                                .stream()
-                                .map(Answer::getAnswer)
-                                .collect(Collectors.toSet());
-        return correctAnswer.equals(answer);
+    public boolean checkAnswer(QuizDto quiz, Set<Integer> answer) {
+        return answer.equals(quiz.getAnswer());
     }
 }
