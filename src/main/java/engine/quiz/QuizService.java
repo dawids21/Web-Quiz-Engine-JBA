@@ -39,7 +39,7 @@ public class QuizService {
     }
 
     public QuizDto addQuiz(QuizDto quizInput, String accountEmail) {
-        var quiz = objectMapper.mapQuizDtoToQuizEntity(quizInput);
+        var quiz = objectMapper.mapDtoToEntity(quizInput);
         quiz.getAnswers()
             .forEach(answer -> answer.setQuiz(quiz));
 
@@ -51,20 +51,20 @@ public class QuizService {
         quiz.setOwner(accountEntity);
 
         var quizEntity = quizRepository.save(quiz);
-        return objectMapper.mapQuizEntityToQuizDTO(quizEntity);
+        return objectMapper.mapEntityToDto(quizEntity);
     }
 
     public Page<QuizDto> getAllQuizzes(int page) {
         Pageable paging = PageRequest.of(page, PAGE_SIZE);
         return quizRepository.findAll(paging)
-                             .map(objectMapper::mapQuizEntityToQuizDTO);
+                             .map(objectMapper::mapEntityToDto);
     }
 
     public QuizDto getQuizById(long id) {
         var quiz = quizRepository.findById(id)
                                  .orElseThrow(() -> new ResponseStatusException(
                                           HttpStatus.NOT_FOUND, "QuizEntity not found"));
-        return objectMapper.mapQuizEntityToQuizDTO(quiz);
+        return objectMapper.mapEntityToDto(quiz);
     }
 
     public void deleteQuizById(long id) {
@@ -88,8 +88,7 @@ public class QuizService {
                                                 "QuizEntity not found"));
 
         var solved =
-                 quizChecker.checkAnswer(objectMapper.mapQuizEntityToQuizDTO(quizEntity),
-                                         answer);
+                 quizChecker.checkAnswer(objectMapper.mapEntityToDto(quizEntity), answer);
         if (solved) {
             var time = LocalDateTime.now();
             var accountEmail = currentAccountService.getCurrentAccount()

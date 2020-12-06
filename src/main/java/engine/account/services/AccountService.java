@@ -51,12 +51,12 @@ public class AccountService {
     public AccountDto getAccount(long id) throws AccountNotFoundException {
         var entity = accountRepository.findById(id)
                                       .orElseThrow(AccountNotFoundException::new);
-        return objectMapper.mapAccountToAccountDTO(entity);
+        return objectMapper.mapEntityToDto(entity);
     }
 
     public AccountDto getAccount(String email) throws AccountNotFoundException {
         var entity = accountRepository.findByEmail(email)
                                       .orElseThrow(AccountNotFoundException::new);
-        return objectMapper.mapAccountToAccountDTO(entity);
+        return objectMapper.mapEntityToDto(entity);
     }
 }
