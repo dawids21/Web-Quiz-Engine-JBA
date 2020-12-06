@@ -54,7 +54,7 @@ public class ObjectMapper {
     }
 
     public CompletionDto mapEntityToDto(CompletionEntity source) {
-        var target = new CompletionDto(source.getId(), source.getCompletedAt());
-        return target;
+        return new CompletionDto(source.getQuizEntity()
+                                       .getId(), source.getCompletedAt());
     }
 }
