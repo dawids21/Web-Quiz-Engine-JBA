@@ -2,6 +2,7 @@ package engine.quiz;
 
 import engine.account.AccountRepository;
 import engine.account.services.CurrentAccountService;
+import engine.quiz.models.CompletionDto;
 import engine.quiz.models.CompletionEntity;
 import engine.quiz.models.QuizDto;
 import engine.utils.ObjectMapper;
@@ -22,6 +23,7 @@ public class QuizService {
     private static final int PAGE_SIZE = 10;
     private final QuizRepository quizRepository;
     private final AccountRepository accountRepository;
+    private final CompletionRepository completionRepository;
     private final ObjectMapper objectMapper;
     private final QuizChecker quizChecker;
 
@@ -29,10 +31,12 @@ public class QuizService {
 
     @Autowired
     public QuizService(QuizRepository quizRepository, AccountRepository accountRepository,
+                       CompletionRepository completionRepository,
                        ObjectMapper objectMapper, QuizChecker quizChecker,
                        CurrentAccountService currentAccountService) {
         this.quizRepository = quizRepository;
         this.accountRepository = accountRepository;
+        this.completionRepository = completionRepository;
         this.objectMapper = objectMapper;
         this.quizChecker = quizChecker;
         this.currentAccountService = currentAccountService;
@@ -105,5 +109,13 @@ public class QuizService {
             accountRepository.save(account);
         }
         return solved;
+    }
+
+    public Page<CompletionDto> getCompleted(int page) {
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+        String accountEmail = currentAccountService.getCurrentAccount()
+                                                   .getEmail();
+        return completionRepository.findAllByAccountEntityEmail(accountEmail, pageable)
+                                   .map(objectMapper::mapEntityToDto);
     }
 }
