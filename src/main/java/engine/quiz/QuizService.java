@@ -46,7 +46,7 @@ public class QuizService {
 
         var accountEntity = accountRepository.findByEmail(accountEmail)
                                              .orElseThrow();
-        accountEntity.addQuiz(quiz);
+        quiz.setOwner(accountEntity);
 
         var quizEntity = quizRepository.save(quiz);
         return objectMapper.mapQuizEntityToQuizDTO(quizEntity);
@@ -76,9 +76,6 @@ public class QuizService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                                               "Current user is not the quiz owner");
         }
-
-        quiz.getOwner()
-            .removeQuiz(quiz);
         quizRepository.delete(quiz);
     }
 

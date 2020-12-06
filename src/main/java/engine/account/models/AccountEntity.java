@@ -77,14 +77,8 @@ public class AccountEntity {
         this.roles = roles;
     }
 
-    public void addQuiz(QuizEntity quizEntity) {
-        quizEntities.add(quizEntity);
-        quizEntity.setOwner(this);
     }
 
-    public void removeQuiz(QuizEntity quizEntity) {
-        quizEntities.remove(quizEntity);
-        quizEntity.setOwner(null);
     }
 
     @Override
