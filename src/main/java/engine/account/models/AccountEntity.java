@@ -116,4 +116,8 @@ public class AccountEntity {
                ", password='" + password + '\'' + ", quizEntities=" + quizEntities +
                ", roles=" + roles + ", completionEntities=" + completionEntities + '}';
     }
+
+    public void addCompletion(CompletionEntity completion) {
+        completionEntities.add(completion);
+    }
 }
