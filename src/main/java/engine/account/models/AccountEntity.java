@@ -64,11 +64,11 @@ public class AccountEntity {
         this.password = password;
     }
 
-    public List<QuizEntity> getQuizzes() {
+    public List<QuizEntity> getQuizEntities() {
         return quizEntities;
     }
 
-    public void setQuizzes(List<QuizEntity> quizEntities) {
+    public void setQuizEntities(List<QuizEntity> quizEntities) {
         this.quizEntities = quizEntities;
     }
 
@@ -100,13 +100,14 @@ public class AccountEntity {
         return getId() == accountEntity.getId() &&
                Objects.equals(getEmail(), accountEntity.getEmail()) &&
                Objects.equals(getPassword(), accountEntity.getPassword()) &&
-               Objects.equals(getQuizzes(), accountEntity.getQuizzes()) &&
+               Objects.equals(getQuizEntities(), accountEntity.getQuizEntities()) &&
                Objects.equals(getRoles(), accountEntity.getRoles());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getPassword(), getQuizzes(), getRoles());
+        return Objects.hash(getId(), getEmail(), getPassword(), getQuizEntities(),
+                            getRoles());
     }
 
     @Override
