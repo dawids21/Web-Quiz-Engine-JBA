@@ -1,6 +1,7 @@
 package engine.account.models;
 
 import engine.account.EmailConstraint;
+import engine.quiz.models.CompletionEntity;
 import engine.quiz.models.QuizEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -34,6 +35,9 @@ public class AccountEntity {
     @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "accountEntity", cascade = CascadeType.ALL)
+    private List<CompletionEntity> completionEntities = new ArrayList<>();
+
     public AccountEntity() {
     }
 
@@ -61,11 +65,11 @@ public class AccountEntity {
         this.password = password;
     }
 
-    public List<QuizEntity> getQuizzes() {
+    public List<QuizEntity> getQuizEntities() {
         return quizEntities;
     }
 
-    public void setQuizzes(List<QuizEntity> quizEntities) {
+    public void setQuizEntities(List<QuizEntity> quizEntities) {
         this.quizEntities = quizEntities;
     }
 
@@ -77,14 +81,12 @@ public class AccountEntity {
         this.roles = roles;
     }
 
-    public void addQuiz(QuizEntity quizEntity) {
-        quizEntities.add(quizEntity);
-        quizEntity.setOwner(this);
+    public List<CompletionEntity> getCompletionEntities() {
+        return completionEntities;
     }
 
-    public void removeQuiz(QuizEntity quizEntity) {
-        quizEntities.remove(quizEntity);
-        quizEntity.setOwner(null);
+    public void setCompletionEntities(List<CompletionEntity> completionEntities) {
+        this.completionEntities = completionEntities;
     }
 
     @Override
@@ -95,23 +97,28 @@ public class AccountEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountEntity accountEntity = (AccountEntity) o;
-        return getId() == accountEntity.getId() &&
-               Objects.equals(getEmail(), accountEntity.getEmail()) &&
-               Objects.equals(getPassword(), accountEntity.getPassword()) &&
-               Objects.equals(getQuizzes(), accountEntity.getQuizzes()) &&
-               Objects.equals(getRoles(), accountEntity.getRoles());
+        AccountEntity that = (AccountEntity) o;
+        return getId() == that.getId() && Objects.equals(getEmail(), that.getEmail()) &&
+               Objects.equals(getPassword(), that.getPassword()) &&
+               Objects.equals(getQuizEntities(), that.getQuizEntities()) &&
+               Objects.equals(getRoles(), that.getRoles()) &&
+               Objects.equals(getCompletionEntities(), that.getCompletionEntities());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getPassword(), getQuizzes(), getRoles());
+        return Objects.hash(getId(), getEmail(), getPassword(), getQuizEntities(),
+                            getRoles(), getCompletionEntities());
     }
 
     @Override
     public String toString() {
         return "AccountEntity{" + "id=" + id + ", email='" + email + '\'' +
                ", password='" + password + '\'' + ", quizEntities=" + quizEntities +
-               ", roles=" + roles + '}';
+               ", roles=" + roles + ", completionEntities=" + completionEntities + '}';
+    }
+
+    public void addCompletion(CompletionEntity completion) {
+        completionEntities.add(completion);
     }
 }

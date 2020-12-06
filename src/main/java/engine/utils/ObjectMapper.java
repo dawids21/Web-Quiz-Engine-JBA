@@ -3,10 +3,7 @@ package engine.utils;
 import engine.account.models.AccountDto;
 import engine.account.models.AccountEntity;
 import engine.account.models.Role;
-import engine.quiz.models.Answer;
-import engine.quiz.models.Option;
-import engine.quiz.models.QuizDto;
-import engine.quiz.models.QuizEntity;
+import engine.quiz.models.*;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -14,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class ObjectMapper {
 
-    public QuizEntity mapQuizDtoToQuizEntity(QuizDto source) {
+    public QuizEntity mapDtoToEntity(QuizDto source) {
         var quiz = new QuizEntity();
         quiz.setTitle(source.getTitle());
         quiz.setText(source.getText());
@@ -29,7 +26,7 @@ public class ObjectMapper {
         return quiz;
     }
 
-    public AccountDto mapAccountToAccountDTO(AccountEntity source) {
+    public AccountDto mapEntityToDto(AccountEntity source) {
         var account = new AccountDto();
         account.setEmail(source.getEmail());
         account.setPassword(source.getPassword());
@@ -40,7 +37,7 @@ public class ObjectMapper {
         return account;
     }
 
-    public QuizDto mapQuizEntityToQuizDTO(QuizEntity source) {
+    public QuizDto mapEntityToDto(QuizEntity source) {
         var quiz = new QuizDto();
         quiz.setId(source.getId());
         quiz.setTitle(source.getTitle());
@@ -54,5 +51,10 @@ public class ObjectMapper {
                              .map(Answer::getAnswer)
                              .collect(Collectors.toSet()));
         return quiz;
+    }
+
+    public CompletionDto mapEntityToDto(CompletionEntity source) {
+        return new CompletionDto(source.getQuizEntity()
+                                       .getId(), source.getCompletedAt());
     }
 }

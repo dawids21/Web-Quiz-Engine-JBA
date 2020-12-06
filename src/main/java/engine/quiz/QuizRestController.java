@@ -1,7 +1,7 @@
 package engine.quiz;
 
-import engine.account.services.CurrentAccountService;
 import engine.quiz.models.AnswerFeedback;
+import engine.quiz.models.CompletionDto;
 import engine.quiz.models.QuizDto;
 import engine.utils.ErrorsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +23,16 @@ public class QuizRestController {
 
     private final QuizService quizService;
     private final ErrorsExtractor errorsExtractor;
-    private final CurrentAccountService currentAccountService;
 
     @Autowired
-    public QuizRestController(QuizService quizService, QuizChecker quizChecker,
-                              ErrorsExtractor errorsExtractor,
-                              CurrentAccountService currentAccountService) {
+    public QuizRestController(QuizService quizService, ErrorsExtractor errorsExtractor) {
         this.quizService = quizService;
         this.errorsExtractor = errorsExtractor;
-        this.currentAccountService = currentAccountService;
     }
 
     @PostMapping(path = "/quizzes", consumes = "application/json")
     public QuizDto addQuiz(@Valid @RequestBody QuizDto quiz) {
-        var account = currentAccountService.getCurrentAccount();
-        return quizService.addQuiz(quiz, account.getEmail());
+        return quizService.addQuiz(quiz);
     }
 
     @GetMapping(path = "/quizzes")
@@ -60,6 +55,11 @@ public class QuizRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuiz(@PathVariable long id) {
         quizService.deleteQuizById(id);
+    }
+
+    @GetMapping("/quizzes/completed")
+    public Page<CompletionDto> getCompleted(@RequestParam(defaultValue = "0") int page) {
+        return quizService.getCompleted(page);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

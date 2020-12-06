@@ -3,6 +3,7 @@ package engine.quiz.models;
 import engine.account.models.AccountEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,9 @@ public class QuizEntity {
 
     @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
     private Set<Answer> answers = new HashSet<>();
+
+    @OneToMany(mappedBy = "quizEntity", cascade = CascadeType.ALL)
+    private List<CompletionEntity> completionEntities = new ArrayList<>();
 
     public QuizEntity() {
     }
@@ -78,5 +82,13 @@ public class QuizEntity {
 
     public void setAnswers(Set<Answer> answer) {
         this.answers = answer;
+    }
+
+    public List<CompletionEntity> getCompletionEntities() {
+        return completionEntities;
+    }
+
+    public void setCompletionEntities(List<CompletionEntity> completionEntities) {
+        this.completionEntities = completionEntities;
     }
 }
